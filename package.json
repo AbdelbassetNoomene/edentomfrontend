@@ -1,11 +1,7 @@
 {
   "name": "edentom",
   "version": "0.0.1",
-  "dependencies": {},
-  "scripts": {
-    "test": "gulp test"
-  },
-  "dependencies": {
+   "dependencies": {
     "browser-sync": "~2.9.11",
     "browser-sync-spa": "~1.0.3",
     "chalk": "~1.1.1",
@@ -54,6 +50,10 @@
     "uglify-save-license": "~0.4.1",
     "wiredep": "~2.2.2",
     "wrench": "~1.5.8"
+   },
+  "scripts": {
+  "start": "node app",
+  "postinstall": "gulp default"
   },
   "devDependencies": {
     
