@@ -5,7 +5,7 @@
   "scripts": {
     "test": "gulp test"
   },
-  "devDependencies": {
+  "dependencies": {
     "browser-sync": "~2.9.11",
     "browser-sync-spa": "~1.0.3",
     "chalk": "~1.1.1",
@@ -54,6 +54,9 @@
     "uglify-save-license": "~0.4.1",
     "wiredep": "~2.2.2",
     "wrench": "~1.5.8"
+  },
+  "devDependencies": {
+    
   },
   "engines": {
     "node": ">=0.10.0"
