@@ -53,7 +53,7 @@
    },
   "scripts": {
   "start": "node app",
-  "postinstall": "gulp serve"
+  "postinstall": "gulp heroku:production"
   },
   "devDependencies": {
     
