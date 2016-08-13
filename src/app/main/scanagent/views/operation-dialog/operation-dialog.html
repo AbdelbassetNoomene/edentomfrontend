@@ -1,0 +1,48 @@
+<md-dialog class="chooser-operation-dialog" aria-label="Schema Dental">
+    <md-toolbar>
+        <div class="md-toolbar-tools md-accent-bg">
+            <span class="title"> Zahn-Nr {{ vm.toothNumber }} </span>
+            <span flex></span>
+            <md-icon  md-font-icon="icon-close" ng-click="vm.closeDialog()"></md-icon>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+
+        <md-radio-group ng-model="vm.selectedOperation">
+            <md-radio-button value="Veneer">
+        	    <span class="m-20 h5">Veneer</span> 
+            </md-radio-button>
+
+            <md-radio-button value="Krone">
+                <span class="m-20 h5">Krone</span>
+            </md-radio-button>
+
+            <md-radio-button value="Brucke">
+                <span class="m-20 h5">Br&uuml;cke</span>
+            </md-radio-button>
+
+            <md-radio-button value="In-Onlay">
+                <span class="m-20 h5">In-Onlay</span>
+            </md-radio-button>
+
+            <md-radio-button value="Implantat">
+                <span class="m-20 h5">Implantat</span> 
+            </md-radio-button> 
+        </md-radio-group>
+  
+    </md-dialog-content> 
+
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="start center">
+                <md-button type="submit" ng-click="vm.closeDialog()">
+                    cancel
+                </md-button>
+                <div flex="33"></div>
+                <md-button type="submit" ng-click="vm.selectOperation()">
+                    ok
+                </md-button> 
+            </div> 
+    </md-dialog-actions>
+</md-dialog>

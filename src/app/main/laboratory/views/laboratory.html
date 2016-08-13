@@ -1,0 +1,379 @@
+<div id="laboratory" class="page-layout simple right-sidenav" layout="row">
+
+    <!-- CENTER -->
+    <div class="center" flex ms-scroll>
+
+    <!-- HEADER -->
+    <div class="header md-accent-bg" layout="row" layout-align="start center">
+
+        <div class="white-fg" layout="row" layout-align="start center" flex>
+            <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('sidenav')" hide-gt-md aria-label="Toggle sidenav">
+                <md-icon md-font-icon="icon-google-maps" class="icon"></md-icon>
+            </md-button>
+
+            <div layout="row" layout-align="start center">
+                <div class="item-image" hide-xs>
+                    <img ng-src="{{vm.item.images[0].url}}"/>
+                </div>
+
+                <div layout="column" layout-align="start start">
+                    <div class="h2"><!-- vm.item.images[0].name -->
+                        {{vm.item.name}}
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span translate="LABORATORY.LABORATORY_DETAIL">Laboratory Detail</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <md-button class="md-raised md-background" ng-click="vm.sendForm()" ng-disabled="addLaboratoryForm.$invalid">
+                <span translate="LABORATORY.SAVE">SAVE</span>
+            </md-button>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+        <!-- CONTENT -->
+        <div class="content">
+            <!--md-tabs md-dynamic-height md-stretch-tabs md-selected="vm.selectedIndex">
+                <md-tab label="Add Laboratory"      ui-sref="app.laboratory"></md-tab>
+                <md-tab label="Add dental practice" ui-sref="app.dental-practice"></md-tab>
+            </md-tabs>
+            <md-content ui-view="tabContent" flex class="card md-whiteframe-4dp"></md-content-->
+
+            <div id="add-laboratory" class="md-background-bg md-whiteframe-1dp"><!-- product-detail-form-container -->
+
+                <form name="addLaboratoryForm" class="md-inline-form" novalidate>
+                    <md-tabs md-dynamic-height>
+                        <md-tab>
+                            <md-tab-label>
+                                <span translate="LABORATORY.BASIC_DATA">Basic Data</span>
+                            </md-tab-label>
+
+                            <md-tab-body>
+                                <div layout="column" flex>
+                                        <div id="item-image-uploader"
+                                             flow-init="vm.ngFlowOptions"
+                                             flow-name="vm.ngFlow.flow"
+                                             flow-files-submitted="vm.upload()"
+                                             flow-file-added="vm.fileAdded($file)"
+                                             flow-file-success="vm.fileSuccess($file, $message)"
+                                             flow-complete="vm.uploadComplete()"
+                                             flow-drop
+                                             flow-drag-enter="vm.dropping=true"
+                                             flow-drag-leave="vm.dropping=false"
+                                             ng-class="{'dropping':vm.dropping}">
+
+                                            <div class="drop-text hint-text" layout="row" layout-align="center center">
+                                                <span translate="LABORATORY.DROP_TO_UPLOAD">Drop to upload</span>
+                                            </div>
+                                            <div class="upload-button" layout="column" layout-align="center center">
+                                                <md-button class="md-accent md-raised"
+                                                           translate="LABORATORY.UPLOAD_IMAGE" translate-attr-aria-label="LABORATORY.UPLOAD_IMAGE"
+                                                           flow-btn>
+                                                     Upload image
+                                                </md-button>
+                                                <span class="secondary-text mt-8" translate="LABORATORY.FILE_UPLOAD_NOTE">You can also drop images here to upload. Only PNG, JPG - Max 1MB</span>
+                                            </div>
+
+                                            <div layout="row" layout-align="start start" layout-wrap>
+                                               <div ng-repeat="image in vm.item.images | limitTo: 1" ng-switch="image.type">
+                                                 <div class="item-image uploading" ng-switch-when="uploading" layout="row"
+                                                      layout-align="center center">
+                                                     <div class="overlay" layout="column" layout-align="center center">
+                                                         <md-progress-linear md-mode="determinate"
+                                                                             value="{{image.file.progress() * 100}}">
+                                                         </md-progress-linear>
+                                                     </div>
+                                                     <img class="media" flow-img="image.file">
+                                                 </div>
+
+                                                 <div class="item-image" ng-switch-when="image" layout="row" layout-align="center center">
+                                                     <img class="media" ng-src="{{image.url}}">
+                                                 </div>
+                                             </div>
+                                           </div>
+                                         </div>
+
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.NAME">Name</label>
+                                            <input md-maxlength="30" required md-no-asterisk name="name" ng-model="vm.item.name"/>
+                                            <div class="hint">Tell us what we should call you!</div>
+                                            <div ng-messages="addLaboratoryForm.name.$error" md-auto-hide="false"
+                                                 ng-if="addLaboratoryForm.name.$error && addLaboratoryForm.name.$touched">
+                                                <div ng-message="required">Name is required.</div>
+                                                <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.PHONE">Phone number</label>
+                                            <input name="phoneNumber" ng-model="vm.item.phoneNumber" ng-pattern="/^[0][0-9]{0,}$/"/>
+                                            <div class="hint">Phone number must start with 0.</div>
+                                            <div ng-messages="addLaboratoryForm.phoneNumber.$error" role="alert" md-auto-hide="false"
+                                                 ng-if="addLaboratoryForm.phoneNumber.$error && addLaboratoryForm.phoneNumber.$touched">
+                                                <div ng-message="pattern">Please supply a valid phone number</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.COUNTRY">Country</label>
+                                            <md-select name="country" ng-model="vm.item.country" ng-change="vm.getCities(vm.item.country)" required>
+                                              <md-option ng-repeat="country in vm.countries" value="{{country.id}}">{{country.nameDe}}</md-option>
+                                            </md-select>
+                                            <div ng-messages="addLaboratoryForm.country.$error" md-auto-hide="false" multiple
+                                                 ng-if="addLaboratoryForm.country.$error && addLaboratoryForm.country.$touched">
+                                              <div ng-message="required" class="my-message">You must choose a country.</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.STREET">Street</label>
+                                            <input name="street" ng-model="vm.item.street" required/>
+                                            <div ng-messages="addLaboratoryForm.street.$error" md-auto-hide="false"
+                                                 ng-if="addLaboratoryForm.street.$error && addLaboratoryForm.street.$touched">
+                                                <div ng-message="required" class="my-message">You must supply your Street name.</div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.HOUSE_NUMBER">House number</label>
+                                            <input name="houseNumber" ng-model="vm.item.houseNumber" ng-pattern="/^[0-9]{1,}$/" required>
+                                            <div ng-messages="addLaboratoryForm.houseNumber.$error" multiple md-auto-hide="false"
+                                                 ng-if="addLaboratoryForm.houseNumber.$error && addLaboratoryForm.houseNumber.$touched">
+                                                <div ng-message="required" class="my-message">You must supply your house number.</div>
+                                                <div ng-message="pattern" class="my-message">That doesn't look like a valid house number.
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <div layout="row">
+                                            <md-input-container class="md-block">
+                                                <label translate="LABORATORY.POSTAL_CODE">Postal Code</label>
+                                                <input name="postalCode" ng-model="vm.item.postalCode" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                                                <div ng-messages="addLaboratoryForm.postalCode.$error" md-auto-hide="false" multiple role="alert"
+                                                     ng-if="addLaboratoryForm.postalCode.$error && addLaboratoryForm.postalCode.$touched">
+                                                  <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                                                  <div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.</div>
+                                                  <div ng-message="md-maxlength" class="my-message">Don't use the long version silly...we don't need to be that specific...</div>
+                                                </div>
+                                            </md-input-container>
+
+                                            <md-input-container class="md-block">
+                                                <label translate="LABORATORY.CITY">City</label>
+                                                <md-select name="city" ng-model="vm.item.city" required>
+                                                    <md-option ng-repeat="city in vm.cities" value="{{city.id}}">{{city.name}}</md-option>
+                                                </md-select>
+                                                <!-- <input name="city" ng-model="vm.item.city" required> -->
+                                                <div ng-messages="addLaboratoryForm.city.$error" md-auto-hide="false" multiple
+                                                     ng-if="addLaboratoryForm.city.$error && addLaboratoryForm.city.$touched">
+                                                  <div ng-message="required" class="my-message">You must supply your city name.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.EMAIL">E-mail</label>
+                                            <input required type="email" name="email" ng-model="vm.item.email" ng-pattern="/^.+@.+\..+$/" required/>
+                                            <div ng-messages="addLaboratoryForm.email.$error" md-auto-hide="false"
+                                                 ng-if="addLaboratoryForm.email.$error && addLaboratoryForm.email.$touched">
+                                              <div ng-message="required">
+                                                  <span>Email field is required</span>
+                                              </div>
+                                              <div ng-message="pattern">
+                                                  <span>Email must be a valid e-mail address</span>
+                                              </div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.WEB_SITE">Web site</label>
+                                            <input type="url"  name="website" ng-model="vm.item.website" ng-pattern="/^https?://www.+\..+$/"/>
+                                            <div ng-messages="addLaboratoryForm.website.$error" md-auto-hide="false"
+                                                 ng-if="addLaboratoryForm.website.$error && addLaboratoryForm.website.$touched">
+                                              <div ng-message="pattern">
+                                                  <span>Web site must start with http://www. or https://www.</span>
+                                              </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                            </md-tab-body>
+                        </md-tab>
+
+                        <md-tab>
+                            <md-tab-label>
+                                <span translate="LABORATORY.DENTAL_LABORATORY_DATA">Dental Laboratory Data</span>
+                            </md-tab-label>
+
+                            <md-tab-body>
+                                <div layout="column" flex>
+                                        <div class="h3 md-accent-fg" translate="">DENTAL LABORATORY NAME</div>
+
+                                        <div layout="row" flex>
+                                            <div flex>
+                                                <span class="h3" translate="LABORATORY.SALUTAION">Salutation</span><span>:</span>
+                                            </div>
+                                            <div flex>
+                                              <md-radio-group ng-model="vm.item.genre">
+                                                <md-radio-button value="Mrs"><span translate="LABORATORY.MRS">Mrs</span></md-radio-button>
+                                                <md-radio-button value="Mr"><span translate="LABORATORY.MR">Mr</span></md-radio-button>
+                                              </md-radio-group>
+                                            </div>
+                                        </div>
+                                        <div layout="row" flex>
+                                            <div flex>
+                                                <span class="h3" translate="LABORATORY.YOU_ARE">You are</span><span>:</span>
+                                            </div>
+                                            <div layout="column" flex>
+                                              <div>
+                                                <md-checkbox ng-model="vm.item.role.manager" aria-label="Checkbox 1">
+                                                    <span translate="LABORATORY.MANAGER">Manager</span>
+                                                </md-checkbox>
+                                              </div>
+                                              <div>
+                                                <md-checkbox ng-model="vm.item.role.systemAdmin" aria-label="Checkbox 1">
+                                                    <span translate="LABORATORY.SYSTEM_ADMIN">System Admin</span>
+                                                </md-checkbox>
+                                              </div>
+                                            </div>
+                                        </div>
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.LASTNAME">Last name</label>
+                                            <input name="lastname" ng-model="vm.item.lastname"/>
+                                        </md-input-container>
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.FIRSTNAME">First name</label>
+                                            <input name="firstName" ng-model="vm.item.firstName"/>
+                                        </md-input-container>
+
+                                        <md-input-container class="md-block">
+                                            <label translate="LABORATORY.MOBILE">Mobile</label>
+                                            <input name="mobile" ng-model="vm.item.mobile" ng-pattern="/^[0][1][0-9]{0,}$/" required/>
+                                            <div class="hint">Mobile number must start with 01.</div>
+                                            <div ng-messages="addLaboratoryForm.mobile.$error" multiple md-auto-hide="false"
+                                                 ng-if="addLaboratoryForm.mobile.$error && addLaboratoryForm.mobile.$touched">
+                                              <div ng-message="required">
+                                                  <span>Mobile field is required</span>
+                                              </div>
+                                              <div ng-message="pattern">
+                                                  <span>Please supply a valid Mobile number</span>
+                                              </div>
+                                            </div>
+                                        </md-input-container>
+
+                                        <div class="md-whiteframe-1dp p-8">
+                                            <md-input-container class="md-block">
+                                                <label translate="LABORATORY.USERNAME">User name</label>
+                                                <input md-maxlength="30" md-no-asterisk name="userName" ng-model="vm.item.userName"/>
+                                                <div class="hint">Tell us what your user name!</div>
+                                                <div ng-messages="addLaboratoryForm.userName.$error"
+                                                     ng-if="addLaboratoryForm.userName.$error && addLaboratoryForm.userName.$touched">
+                                                    <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>
+                                                </div>
+                                            </md-input-container>
+
+                                            <md-input-container class="md-block">
+                                                <label translate="LABORATORY.YOUR_EMAIL">Your email address</label>
+                                                <input type="email" name="yourEmail" ng-model="vm.item.yourEmail" ng-pattern="/^.+@.+\..+$/" required/>
+                                                <div ng-messages="addLaboratoryForm.yourEmail.$error" multiple md-auto-hide="false"
+                                                     ng-if="addLaboratoryForm.yourEmail.$error && addLaboratoryForm.yourEmail.$touched">
+                                                  <div ng-message="required">
+                                                      <span>Email field is required</span>
+                                                  </div>
+                                                  <div ng-message="pattern">
+                                                      <span>Email must be a valid e-mail address</span>
+                                                  </div>
+                                                </div>
+                                            </md-input-container>
+
+                                            <md-input-container class="md-block">
+                                                <label translate="LABORATORY.PASSWORD">Your password</label>
+                                                <input type="password" name="password" ng-model="vm.item.password" ng-model-options="{updateOn: 'blur'}"  required>
+                                                <span class="secondary-text mt-8" translate="LABORATORY.PASSWORD_NOTE">Use at least one lowercase letter, one numeral, and seven characters.</span>
+
+                                                <div ng-messages="addLaboratoryForm.password.$error"
+                                                     ng-if="addLaboratoryForm.password.$error && addLaboratoryForm.password.$touched"
+                                                     md-auto-hide="false">
+                                                    <div ng-message="required"><span>Password field is required.</span></div>
+                                                </div>
+                                            </md-input-container>
+
+                                            <md-input-container class="md-block">
+                                                <label translate="LABORATORY.CONFIRM_PASSWORD">Confirm Your password</label>
+                                                <input type="password" name="passwordConfirm"
+                                                       ng-model="vm.item.passwordConfirm"
+                                                       pw-check="vm.item.password === vm.item.passwordConfirm" required>
+
+                                                <div ng-messages="addLaboratoryForm.passwordConfirm.$error"
+                                                     ng-if="addLaboratoryForm.passwordConfirm.$error && addLaboratoryForm.passwordConfirm.$touched"
+                                                     md-auto-hide="false">
+                                                    <div ng-message="required"><span>Password (Confirm) field is required.</span></div>
+                                                </div>
+                                                <div ng-messages="addLaboratoryForm.passwordConfirm.$error"
+                                                     ng-if="addLaboratoryForm.passwordConfirm.$invalid && addLaboratoryForm.passwordConfirm.$touched"
+                                                     md-auto-hide="false">
+                                                    <div>Passwords don't match.</div>
+                                                </div>
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                            </md-tab-body>
+                        </md-tab>
+                    </md-tabs>
+
+                    <div id="grad" class="p-8" layout="column" layout-align="center center">
+                        <div class="w-300">
+                            <md-checkbox ng-model="vm.item.data.cb1" aria-label="Checkbox 1">
+                                <span translate="LABORATORY.CHECKBOX1">I accept the Terms eDentOM</span>
+                            </md-checkbox>
+                        </div>
+                        <div class="w-300">
+                            <md-checkbox ng-model="vm.item.data.cb2" aria-label="Checkbox 2">
+                                <span translate="LABORATORY.CHECKBOX2">I want to Newsletter themes run receive a cancellation is possible at any time. I passed third</span>
+                            </md-checkbox>
+                        </div>
+                        <div class="w-300" layout="row" layout-align="center center">
+                            <md-button class="md-grey-400-bg md-raised" translate="LABORATORY.CANCEL">Cancel</md-button>
+                            <md-button type="submit" class="md-accent md-raised" aria-label="Submit" ng-disabled="addLaboratoryForm.$invalid || addLaboratoryForm.$pristine" translate="LABORATORY.SUBMIT">Ok</md-button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- / CONTENT -->
+    </div>
+    <!-- / CENTER -->
+
+    <!-- SIDENAV -->
+    <md-sidenav class="sidenav details-sidenav md-sidenav-right"
+                md-component-id="sidenav"
+                md-is-locked-open="$mdMedia('gt-md')"
+                ms-scroll
+                ms-sidenav-helper><!-- ui-view="sidenav" -->
+        <md-content class="content" flex class="card md-whiteframe-4dp" ms-scroll>
+            <div id="map-canvas">
+                 <ui-gmap-google-map center="vm.itemsMap.center"
+                                    zoom="vm.itemsMap.zoom"
+                                    draggable="true"
+                                    options="vm.itemsMap.options"
+                                    data-tap-disabled="true">
+                    <ui-gmap-markers models="vm.itemsMap.markers" coords="'coords'" events="vm.itemsMap.markersEvents"><!-- click="vm.showInfo(id)" -->
+-                        <!--ui-gmap-window show="show" closeClick="vm.laborsMap.window.closeClick()"-->
+
+                        <ui-gmap-window coords="vm.selectedmarker.coords" options="vm.itemsMap.options" closeClick="vm.closeClick()" show="vm.selectedmarker.show">
+                            <div>
+                                <!--span ng-non-bindable>{{name}}: {{id}}</span-->
+                                <span>{{vm.selectedmarker.id}}: {{vm.selectedmarker.name}}</span>
+                            </div>
+                            <div ng-non-bindable>{{name}}</div>
+                        </ui-gmap-window>
+                    <!--ui-gmap-markers click="'vm.onClick'" models="vm.laborsMap.markers" coords="'coords'" events="vm.laborsMap.markersEvents" icon="'icon'" idKey="id"-->
+                    </ui-gmap-markers>
+                </ui-gmap-google-map>
+            </div>
+        </md-content>
+    </md-sidenav>
+    <!-- / SIDENAV -->
+</div>

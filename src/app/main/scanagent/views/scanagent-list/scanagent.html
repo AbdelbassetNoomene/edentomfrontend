@@ -1,0 +1,116 @@
+<div id="scanagent" class="page-layout simple fullwidth" layout="column">
+
+    <!-- HEADER -->
+    <div class="header small md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="space-between">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s20"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s20 separator"></md-icon>
+                <span class="parent" translate="SCAN_AGENT.TITLE">Scan-Agents</span>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+	<div layout="column">
+		<md-content layout-padding>
+    		<form id="search-scanagent-form" name="search-scanagent-form" ng-submit="$event.preventDefault()">
+    			<div layout="row" layout-align="start center" layout-sm="column">
+    				<div layout="row" layout-align="start center" layout-sm="column">
+						<div>Verfügbar von:</div>
+						<month-picker bind="vm.searchOptions.availableFrom" ng-model="vm.availableFromShortcut" id="availableFrom" inputname="availableFrom" ng-pattern="/^(0[1-9]|1[0-2])\.[1-9][0-9]{3}$/">
+                            <div ng-message="pattern">{{EC_FE_008}}</div>
+                        </month-picker>
+					</div>
+					<div layout="row" layout-align="start center" layout-sm="column" layout-padding>
+						<div>bis:</div>
+						<month-picker bind="vm.searchOptions.availableTill" ng-model="vm.availableTillShortcut" id="availableTill" inputname="availableTill" ng-pattern="/^(0[1-9]|1[0-2])\.[1-9][0-9]{3}$/">
+                            <div ng-message="pattern">{{EC_FE_008}}</div>
+                        </month-picker>
+					</div>
+        		</div>
+
+                <div layout="row" layout-align="start center" layout-sm="column">
+                    <md-input-container flex="20">
+                        <label translate="FILTER.USER_CITY">Stadt</label>
+                        <md-select ng-model="vm.userCity">
+                            <md-option ng-repeat="city in vm.cities" value="{{city.id}}">{{city.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container flex="20">
+                        <label translate="FILTER.USER_POSTAL_CODE">Postleizahl</label>
+                        <input name="userPostalcode" ng-model="userPostalcode" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                        <div ng-messages="search-scanagent-form.userPostalcode.$error" role="alert" multiple>
+                            <div ng-message="required">
+                                <span>You must supply a postal code.</span>
+                            </div>
+                            <div ng-message="pattern">
+                                <span>That doesn't look like a valid postal code.</span>
+                            </div>
+                            <div ng-message="md-maxlength">
+                                <span>Postal code can't be longer than 5 characters.</span>
+                            </div>
+                        </div>
+      				</md-input-container>
+					<md-input-container flex="20">
+						<label translate="FILTER.USER_ROLE">Ich bin</label>
+                        <md-select ng-model="vm.selectedRole">
+                            <md-option ng-repeat="role in vm.roles" value="{{role}}">{{role}}</md-option>
+                        </md-select>
+      				</md-input-container>
+      			</div>
+
+      			<div layout layout="row">
+        			<md-button type="submit" class="md-raised md-accent" id="submit" ng-click="vm.search()" ng-disabled="search-scanagent-form.$invalid" layout layout-align="center end">Suchen</md-button>
+      			</div>
+   			</form>
+  		</md-content>
+
+		<md-content>
+			<div class="alert alert-success" ng-hide="!vm.message" id="success-message" ng-bind="vm.message"></div>
+			<div class="alert alert-danger"  ng-hide="!vm.error"   id="error-message"   ng-bind="vm.error"></div>
+		</md-content>
+
+        <md-content layout="column" flex ng-show="vm.filteredEntries.length">
+            <md-toolbar class="md-table-toolbar md-default">
+                <div class="md-toolbar-tools">
+                    <span>Ergebnisse</span>
+                    <!--md-button ng-click="hideCheckboxes = !hideCheckboxes">{{hideCheckboxes ? 'Enable Selection' : 'Disable Selection'}}</md-button-->
+                </div>
+            </md-toolbar>
+            <md-table-container>
+                <table md-table md-row-select="true" ng-model="vm.selected" md-progress="vm.promise"><!--multiple-->
+                    <thead md-head md-order="vm.query.order" md-on-reorder="vm.onReorder">
+                        <tr md-row>
+                            <th md-column ng-repeat="column in vm.columns"
+                                md-order-by="{{column.orderBy}}">{{column.name}}</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body><!-- | filter:searchOptions-->
+                        <tr md-row md-select="scanagent" md-on-select="vm.log" md-on-deselect="vm.deselect" x-md-auto-select="true"
+                            data-ng-repeat="scanagent in vm.filteredEntries | orderBy: vm.query.order | limitTo: vm.query.limit: (vm.query.page -1) * vm.query.limit">
+                            <td md-cell><a ui-sref="app.home.prices-list-scanagent({ scanagentId: scanagent.id })">{{scanagent.id}}</a></td>
+                            <td md-cell>{{scanagent.username}}</td>
+                            <td md-cell>{{scanagent.firstName}} {{scanagent.lasttName}}</td>
+                            <td md-cell>{{scanagent.mail}}</td>
+                            <td md-cell>{{scanagent.phone}}</td>
+                            <td md-cell><md-icon md-font-icon ng-class="scanagent.readinessStatus.icon"
+                                     ng-style="{'color': scanagent.readinessStatus.color }"
+                                     class="icon status s16"></md-icon></td><!-- {{scanagent.readiness}} -->
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.filteredEntries.length}}" md-on-paginate="vm.onPaginate" md-page-select></md-table-pagination>
+        </md-content>
+
+        <md-content layout-padding ng-show="vm.filteredEntries.length">
+            <div layout="column">
+                <div layout="row"layout-padding>
+				    <embed ng-if="!vm.protocolFileError" ng-src="{{vm.protocolFileContent}}" style="width:100%;height:500px;"></embed>
+                    <div class="alert alert-danger" ng-if="vm.protocolFileError" id="protocol-file-error-message" ng-bind="vm.protocolFileError"></div>
+                </div>
+            </div>
+        </md-content>
+    </div>
+</div>

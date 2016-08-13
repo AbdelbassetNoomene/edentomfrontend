@@ -1,0 +1,66 @@
+<!-- DIALOG -->
+<md-dialog class="reduction-dialog" aria-label="New Task">
+
+    <form name="reductionForm" class="md-inline-form">
+
+        <!-- DIALOG TOOLBAR -->
+        <div class="md-accent-bg" layout="row" layout-align="space-between" layout-padding>
+            <span class="title yellow-50-fg">{{vm.title}}</span>
+            <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" translate
+                       translate-attr-aria-label="">
+                <md-icon md-font-icon="icon-close"></md-icon>
+            </md-button>
+        </div>
+        <!-- / DIALOG TOOLBAR -->
+
+        <!-- DIALOG CONTENT -->
+        <md-dialog-content>
+            <md-input-container class="md-icon-float md-block">
+                <label translate="OFFER.QUANTITY">Quantity</label>
+                <input name="quantity" ng-model="vm.reduction.quantity" type="number" min="1" step="1" pattern="[0-9]*" required>
+                <div ng-messages="reductionForm.quantity.$error" role="alert" md-auto-hide="false">
+                    <div ng-message="pattern">Please supply a valid Quantity</div>
+                </div>
+            </md-input-container>
+             <md-input-container class="md-icon-float md-block">
+                <label translate="OFFER.REDUCTION">Reduction Percentage</label>
+                <input name="reduction-percentage" ng-model="vm.reduction.reductionPercentage" type="number" min="0.5" step="0.5" required>
+            </md-input-container>
+        </md-dialog-content>
+        <!-- / DIALOG CONTENT -->
+
+        <!-- DIALOG ACTIONS -->
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="start center">
+                <md-button type="submit" ng-if="!vm.newReduction" ng-click="vm.saveReduction()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="reductionForm.$invalid || reductionForm.$pristine" 
+                           aria-label="SAVE" translate="OFFER.SAVE" translate-attr-aria-label="">
+                    SAVE
+                </md-button>
+
+                <md-button type="submit" ng-if="vm.newReduction" ng-click="vm.addNewReduction()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="reductionForm.$invalid || reductionForm.$pristine"
+                           aria-label="Add Task" translate="OFFER.ADD_REDUCTION"
+                           translate-attr-aria-label="">
+                    ADD REDUCTION
+                </md-button>
+
+            </div>
+
+            <div layout="row">
+                <md-button class="md-icon-button" ng-if="!vm.newReduction" ng-click="vm.deleteReductionConfirm($event)" aria-label="Delete"
+                           translate
+                           translate-attr-aria-label="">
+                    <md-icon md-font-icon="icon-delete"></md-icon>
+                    <md-tooltip><span translate="OFFER.DELETE">DELETE</span></md-tooltip>
+                </md-button>
+            </div>
+        </md-dialog-actions>
+        <!-- / DIALOG ACTIONS -->
+
+    </form>
+
+</md-dialog>
+<!-- / DIALOG -->

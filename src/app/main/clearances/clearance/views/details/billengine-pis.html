@@ -1,0 +1,104 @@
+<md-content class="md-accent md-hue-2 md-padding">
+
+    <div>
+		<p>Portfolio</p>
+		<div layout="row" layout-wrap>
+			<div ng-repeat="portfolio in vm.statistics.billenginePis.data.portfolios">
+			    <md-checkbox ng-checked="vm.statistics.billenginePis.selectedPortfolio.shortcut===portfolio.shortcut"
+        		             ng-click="vm.setSelectedPortfolio(portfolio,'billenginePis')"
+        		             aria-label="portfolio.name"
+        		             flex>
+          			{{ portfolio.name }}
+        		</md-checkbox>
+        	</div>
+  		</div>
+  		<div class="small-row" flex layout="row" layout-wrap layout-align="start center" ng-if="vm.statistics.billenginePis.selectedPortfolio.name">
+  			<div flex="20">KorrekturFunktion</div>
+  			<div flex>
+  				<md-select ng-model="vm.statistics.billenginePis.selectedCfIndex" ng-change="vm.setSelectedItem(vm.statistics.billenginePis.selectedCfIndex,'cf')">
+                    <md-option ng-value=""></md-option>
+                    <md-option ng-repeat="cf in vm.statistics.billenginePis.selectedPortfolio.correctionFunctions track by $index" value="{{$index}}">{{cf.name}}</md-option>
+                </md-select>
+  			</div>
+        </div>
+	</div>
+	<md-divider></md-divider>
+	<div layout="column" ng-if="vm.statistics.billenginePis.selectedPortfolio.pisData[0].values.length > 0">
+        <h4>Betragskennzahlen</h4>
+        <!-- Chart -->
+        <div>
+            <nvd3 options='vm.statistics.billenginePis.selectedPortfolio.pisOptions' data='vm.statistics.billenginePis.selectedPortfolio.pisData'></nvd3>
+        </div>
+        <table class="results simple clickable" ms-responsive-table>
+    		<thead>
+        		<tr>
+        			<th ng-repeat="piData in vm.statistics.billenginePis.selectedPortfolio.pisData[0].values track by $index">{{piData.name}}</th>
+        		</tr>
+    		</thead>
+    		<tbody>
+        		<tr class="result-item">
+            		<td ng-repeat="piData in vm.statistics.billenginePis.selectedPortfolio.pisData[0].values track by $index">{{vm.statistics.billenginePis.selectedPortfolio.pisFormattedValues[$index]}}</td>
+        		</tr>
+    		</tbody>
+		</table>
+    </div>
+	<div layout="column" ng-if="vm.statistics.billenginePis.selectedCorrectionFunction.pisData[0].values.length > 0">
+		<div layout="row" layout-wrap layout-align="center center"><h4>{{vm.statistics.billenginePis.selectedCorrectionFunction.name}}</h4></div>
+		<h4>Betragskennzahlen</h4>
+		<!-- Chart -->
+        <div>
+		    <nvd3 options='vm.statistics.billenginePis.selectedCorrectionFunction.pisOptions' data='vm.statistics.billenginePis.selectedCorrectionFunction.pisData'></nvd3>
+        </div>
+        <table class="results simple clickable" ms-responsive-table>
+    		<thead>
+      			<tr>
+	        		<th ng-repeat="piData in vm.statistics.billenginePis.selectedCorrectionFunction.pisData[0].values">{{piData.name}}</th>
+	      		</tr>
+    		</thead>
+		    <tbody>
+    			<tr>
+        			<td ng-repeat="piData in vm.statistics.billenginePis.selectedCorrectionFunction.pisData[0].values track by $index">{{vm.statistics.billenginePis.selectedCorrectionFunction.pisFormattedValues[$index]}}</td>
+      			</tr>
+    		</tbody>
+		</table>
+	</div>
+	<md-divider></md-divider>
+	<div layout="column" ng-if="vm.statistics.billenginePis.selectedPortfolio.quotes.length > 0">
+		<h4>Quoten</h4>
+		<table class="results simple clickable" ms-responsive-table>
+    		<thead>
+      			<tr>
+	        		<th>Quoten und Durschnittskennzahlen</th>
+	        		<th>Erzeugt</th>
+	        		<th>Quote</th>
+	      		</tr>
+    		</thead>
+		    <tbody>
+    			<tr ng-repeat="quote in vm.statistics.billenginePis.selectedPortfolio.quotes">
+        			<td>{{quote.name}}</td>
+        			<td>{{quote.created}}</td>
+        			<td>{{quote.formattedValue}}</td>
+      			</tr>
+    		</tbody>
+		</table>
+	</div>
+	<div layout="column" ng-if="vm.statistics.billenginePis.selectedCorrectionFunction.quotes.length > 0">
+		<h4>Quoten</h4>
+		<table class="results simple clickable" ms-responsive-table>
+    		<thead>
+      			<tr>
+	        		<th>Quoten und Durschnittskennzahlen</th>
+	        		<th>Erzeugt</th>
+	        		<th>Quote</th>
+	      		</tr>
+    		</thead>
+		    <tbody>
+    			<tr ng-repeat="quote in vm.statistics.billenginePis.selectedCorrectionFunction.quotes">
+        			<td>{{quote.name}}</td>
+        			<td>{{quote.created}}</td>
+        			<td>{{quote.formattedValue}}</td>
+      			</tr>
+    		</tbody>
+		</table>
+	</div>
+</md-content>

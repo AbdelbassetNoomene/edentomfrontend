@@ -1,0 +1,262 @@
+#prices-list-scanagent {
+
+    table.tariff-table {
+        width: 100%;
+        line-height: 0.8;
+	}
+
+	table.td-same-width {
+		td {
+	        width: 33%;
+        }
+	}
+
+    .avatar-scanagent {
+        margin-bottom: -15px;
+        position: relative;
+    }
+
+    .info-user {
+        .info-title {
+            padding: 0 10px 0 0;
+            font-weight: 500;
+        }
+
+        .info {
+            color: rgba(0, 0, 0, 0.54);
+        }
+    }
+
+#Scan-Operation-choose {
+
+	.schema-dental {
+		/*background-image: url("../assets/images/backgrounds/schema-bg.png"); */
+		background-image: url("../assets/images/backgrounds/FondNumTooth.png"); 
+	    background-position: right;
+	    background-size: 100%;
+	    background-repeat:no-repeat; 
+
+	    .up-1 {   
+	    	background-repeat:no-repeat;
+	        background-position: center bottom;
+		    background-size: 40%;
+		    background-attachment: absolute; 
+
+		    #tooth-11 {
+		        width: 23px;
+			    margin-left: -2px;
+			    margin-top: 28px;
+		    } 
+		    #tooth-12 {
+	            width: 22px;
+			    margin-top: 32px;
+			    margin-left: 12px; 
+		    } 
+		    #tooth-13 {
+		        width: 21px;
+			    margin-top: 45px;
+			    margin-left: 60px;
+		    } 
+
+		    #tooth-21 {
+		        width: 23px;
+			    margin-left: -15px;
+			    margin-top: 28px;
+		    } 
+		    #tooth-22 {
+	            width: 22px;
+			    margin-top: 34px;
+			    margin-left: -29px;
+		    } 
+		    #tooth-23 {
+	            width: 21px;
+			    margin-top: 46px;
+			    margin-left: -50px;
+				height: 20px;	
+		    } 
+	    }
+	    .up-2 {     
+	    	background-repeat:no-repeat;    
+			background-position: 33px 0px;  
+		    background-size: 72.75%;
+
+	    	#tooth-14 {
+	            width: 20px;
+			    margin-top: -5px;
+			    margin-left: 50px;
+		    } 
+		    #tooth-15 {
+	    	    width: 20px;
+			    margin-top: -2px;
+			    margin-left: 42px;    	 
+		    } 
+		    #tooth-16 {
+	            width: 26px;
+			    margin-top: -2px;
+			    margin-left: 35px;     
+		    } 
+		    #tooth-17 {
+		        width: 25px;
+			    margin-top: -4px;
+			    margin-left: 30px;        
+		    } 
+		    #tooth-18 {
+		        width: 27px;
+			    margin-top: -2px;
+			    margin-left: 27px;       
+		    } 
+	    }
+	    .up-3 {   
+	    	background-repeat:no-repeat;
+	        background-size: 72.75%;;
+
+		    #tooth-24 {
+		   	    width: 25px;
+			    margin-top: -4px;
+			    margin-left: 40px; 
+		    } 
+		    #tooth-25 {
+	            width: 27px;
+			    margin-top: 13px;
+			    margin-left: -15px;
+		    } 
+		    #tooth-26 {
+	            width: 26px;
+			    margin-left: -20px;
+			    margin-top: 33px;
+		    } 
+		    #tooth-27 {
+	            width: 28px;
+			    margin-left: -22px;
+			    margin-top: 55px; 
+		    } 
+		    #tooth-28 {
+	            width: 30px;
+			    margin-left: -25px;
+			    margin-top: 80px; 
+		    } 
+	    }
+	    .down-1 {   
+	    	background-repeat:no-repeat;    
+	    	background-position: center top;
+			background-size: 40%; 
+
+		    #tooth-31 {
+	            width: 20px;
+	            height: 21px;
+			    margin-top: 11px;
+			    margin-left: 0px;    
+		    } 
+		    #tooth-32 {
+	            width: 24px;
+	            height: 22px;
+			    margin-top: 5px;
+			    margin-left: -22px;
+		    } 
+		    #tooth-33 {
+	            width: 23px;
+	            height: 22px;
+			    margin-top: -1px;
+			    margin-left: -45px;
+		    } 
+
+		    #tooth-41 {
+	    	    width: 20px;
+	    	    height: 21px;
+			    margin-top: 11px;
+			    margin-left: 21px;  
+		    } 
+		    #tooth-42 {
+	            width: 24px;
+	            height: 22px;
+			    margin-top: 6px;
+			    margin-left: 40px;  
+		    } 
+		    #tooth-43 {
+	            width: 25px;
+			    margin-top: -1px;
+			    margin-left: 66px;   
+		    } 
+	    }
+	    
+	    .down-2 {   
+	    	background-repeat:no-repeat;
+		    background-position: right bottom;
+		    background-size: 70%;
+
+		    #tooth-44 {
+			    width: 25px;
+	   	        margin-top: 7px;
+			    margin-left: 56px;   
+		    } 
+		    #tooth-45 {
+			    width: 26px;
+	            margin-top: 11px;
+				margin-left: 47px;  
+		    } 
+		    #tooth-46 {
+			    width: 27px;
+	            margin-top: 13px;
+			    margin-left: 37px; 
+		    } 
+		    #tooth-47 {
+			    width: 28px;
+	            margin-top: 13px;
+			    margin-left: 32px;
+		    } 
+		    #tooth-48 {
+			    width: 30px;
+	            margin-top: 13px;
+			    margin-left: 28px;
+		    } 
+	    }
+
+	    .down-3 {     
+	    	background-repeat:no-repeat;
+	        background-position: left bottom; 
+		    background-size: 70%; 
+
+	    	#tooth-34 {
+	            width: 25px;
+				margin-top: 8px;
+				margin-left: 40px;  
+		    } 
+		    #tooth-35 {
+	        	width: 26px;
+			    margin-top: 13px;
+			    margin-left: 47px;	 
+		    } 
+		    #tooth-36 {
+	            width: 27px;
+			    margin-top: 14px;
+			    margin-left: 55px;      
+		    } 
+		    #tooth-37 {
+	            width: 28px;
+			    margin-top: 14px;
+			    margin-left: 58px;    
+		    } 
+		    #tooth-38 {
+	            width: 30px;
+			    margin-top: 14px;
+			    margin-left: 55px;        
+		    } 
+	    }
+	}
+
+	#choosing-of-process {
+
+		md-input-container {
+			input {
+		    	border: 2px solid rgba(128, 128, 128, 0.29);
+    			border-radius: 5px;
+    			text-align: center;
+			}
+		}
+		.avatar {
+			border: 1px solid rgba(128, 128, 128, 0.29);
+		}
+	}	
+}
+
+}

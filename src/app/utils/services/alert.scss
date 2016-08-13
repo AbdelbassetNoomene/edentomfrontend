@@ -1,0 +1,20 @@
+md-toast {
+    border-radius: 4px;
+    margin-top: $toolbarHeight;
+}
+
+md-toast.md-error-toast-theme {
+	.md-toast-content {
+	    background-color: #f2dede;
+        border-color:     #ebccd1;
+        color:            #a94442;
+    }
+}
+
+md-toast.md-success-toast-theme {
+	.md-toast-content {
+        background-color: #dff0d8;
+        border-color:     #d6e9c6;
+        color:            #3c763d;
+    }
+}

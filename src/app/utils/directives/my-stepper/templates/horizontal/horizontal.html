@@ -1,0 +1,62 @@
+<div class="ms-stepper-horizontal">
+
+    <div class="ms-stepper-steps" ng-transclude></div>
+
+    <div class="ms-stepper-navigation-wrapper">
+        <div class="ms-stepper-navigation" layout="row" layout-align="center center">
+            <md-button class="ms-stepper-navigation-item"
+                       ng-class="{'current': MyStepper.isStepCurrent(step.stepNumber), 'valid': MyStepper.isStepValid(step.stepNumber), 'disabled': MyStepper.isStepDisabled(step.stepNumber), 'optional': MyStepper.isStepOptional(step.stepNumber)}"
+                       ng-click="MyStepper.gotoStep(step.stepNumber)"
+                       ng-disabled="MyStepper.isStepDisabled(step.stepNumber)"
+                       ng-repeat="step in MyStepper.steps" layout="row" layout-align="start center">
+
+                <div class="step md-accent-bg"
+                     layout="row" layout-align="center center">
+                <span ng-if="!MyStepper.isStepValid(step.stepNumber) || MyStepper.isStepOptional(step.stepNumber)">
+                    {{step.stepNumber}}
+                </span>
+                <span ng-if="MyStepper.isStepValid(step.stepNumber) && !MyStepper.isStepOptional(step.stepNumber)">
+                    <i class="icon icon-check s18"></i>
+                </span>
+                </div>
+
+                <div layout="column" layout-align="start start">
+                    <div class="title">{{step.stepTitle}}</div>
+                    <div class="subtitle" ng-if="MyStepper.isStepOptional(step.stepNumber)">Optional</div>
+                </div>
+            </md-button>
+        </div>
+    </div>
+
+    <div class="ms-stepper-controls" layout="row" layout-align="center center">
+        <md-button class="md-accent md-raised"
+                   ng-disabled="MyStepper.isFirstStep()"
+                   ng-click="MyStepper.gotoPreviousStep()"
+                   translate="PRICE_LIST.BACK">
+            Back
+        </md-button>
+
+        <div class="ms-stepper-dots">
+            <span ng-repeat="step in MyStepper.steps"
+                  ng-hide="MyStepper.isStepHidden(step.stepNumber)"
+                  ng-class="{'selected md-accent-bg':MyStepper.currentStepNumber === $index + 1}">
+            </span>
+        </div>
+
+        <md-button class="md-accent md-raised"
+                   ng-if="!MyStepper.isLastStep()"
+                   ng-disabled="!MyStepper.isStepValid(MyStepper.currentStepNumber)"
+                   ng-click="MyStepper.gotoNextStep()"
+                   translate="PRICE_LIST.NEXT">
+            Next
+        </md-button>
+
+        <md-button type="submit" class="md-accent md-raised"
+                   ng-click="MyStepper.resetForm()"
+                   ng-if="MyStepper.isLastStep()"
+                   ng-disabled="!MyStepper.isFormValid()"
+                   translate="PRICE_LIST.SUBMIT">
+            Submit
+        </md-button>
+    </div>
+</div>

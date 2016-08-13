@@ -1,0 +1,29 @@
+<!-- SIDENAV HEADER -->
+<!--div class="header md-accent-bg" layout="column" layout-align="space-between">
+    <div class="toolbar" layout="row" layout-align="end center"></div>
+</div-->
+<!-- / SIDENAV HEADER -->
+
+<!-- SIDENAV CONTENT -->
+<md-content class="content" flex class="card md-whiteframe-4dp" ms-scroll>
+    <!--ui-gmap-google-map center="vm.scanagentsMap.center"
+                        draggable="true"
+                        zoom="vm.scanagentsMap.zoom">
+        <ui-gmap-marker coords="vm.scanagentsMap.marker.coords"
+                        idkey="vm.scanagentsMap.marker.id">
+        </ui-gmap-marker>
+    </ui-gmap-google-map-->
+    <div id="map-canvas">
+        <ui-gmap-google-map center="vm.scanagentsMap.center"
+                            zoom="vm.scanagentsMap.zoom"
+                            draggable="true"
+                            options="vm.scanagentsMap.options">
+            <ui-gmap-markers models="vm.scanagentsMap.markers" coords="'coords'">
+                <ui-gmap-windows show="show">
+                    <div ng-non-bindable>{{name}}</div>
+                </ui-gmap-windows>
+            </ui-gmap-markers>
+        </ui-gmap-google-map>
+    </div>
+</md-content>
+<!-- / SIDENAV CONTENT -->

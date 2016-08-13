@@ -1,0 +1,29 @@
+<div class="header clearance md-accent-bg" layout="column" ng-if="vm.clearance.startTime">
+
+        <div class="header-content" layout="row" layout-align="start end"><!-- / layout-align="space-between" layout-wrap flex -->
+            <table class="results simple clickable" ms-responsive-table>
+    	  	    <thead>
+        		    <tr>
+        			    <th>{{vm.clearance.jobInstanceId}}</th>
+                    	<th>{{vm.clearance.companyName}}</th>
+                   		<th>{{vm.clearance.balancingMonth}}/{{vm.clearance.balancingYear}}</th>
+                    	<th>{{vm.clearance.jobInstanceMode}}</th>
+                    	<th>{{vm.clearance.startTime | date: 'dd.MM.yyyy HH:mm:ss'}}</th>
+                    	<th>{{vm.clearance.endTime | date: 'dd.MM.yyyy HH:mm:ss'}}</th>
+                    	<th>{{vm.getDuration(vm.clearance.startTime, vm.clearance.endTime)}}</th>
+        		    </tr>
+    		    </thead>
+    		    <tbody>
+        		    <tr class="result-item">
+            		    <td>ID</td>
+                    	<td>Buchungskreis</td>
+                    	<td>Buchungsperiode</td>
+                    	<td>Typ</td>
+                    	<td>Start</td>
+                    	<td>Ende</td>
+                    	<td>Dauer</td>
+        		    </tr>
+    		    </tbody>
+		    </table>
+        </div>
+    </div>

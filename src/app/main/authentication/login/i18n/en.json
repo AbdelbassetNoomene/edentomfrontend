@@ -1,0 +1,23 @@
+{
+    "LOGIN": {
+        "INTRO_TITLE": "Welcome to the EdentOM!",
+        "INTRO_DESCRIPTION": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper nisl erat, vel convallis elit fermentum pellentesque. Sed mollis velit facilisis facilisis viverra.",
+        "TITLE": "Log in to your account",
+        "DESCRIPTION": "Sed mollis velit facilisis facilisis viverra",
+        "USERNAME": "Username",
+        "PASSWORD": "Password",
+        "REMEMBER_ME": "Remember Me",
+        "FORGOT_PASSWORD": "Forgot Password?",
+        "LOG_IN": "LOG IN",
+        "OR": "OR",
+        "WITH_GOOGLE": "Log in with Google",
+        "WITH_FACEBOOK": "Log in with Facebook",
+        "WITH_TWITTER": "Log in with Twitter",
+        "DONT_HAVE_ACCOUNT": "Don't have an account?",
+        "CREATE_ACCOUNT": "Create an account",
+        "ERRORS": {
+            "USERNAME_REQUIRED": "Das Feld Benutzername ist erforderlich.",
+            "PASSWORD_REQUIRED": "Das Feld Passwort ist erforderlich."
+        }
+    }
+}

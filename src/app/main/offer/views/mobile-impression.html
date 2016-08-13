@@ -1,0 +1,607 @@
+<div id="mobile-impression" layout="column">
+
+    <md-content layout-padding>
+        <md-list flex>
+            <md-list-item ng-repeat="item in vm.electronicImpression.tariffs" ng-class="{'active': item.expanded}" md-3-line>
+                <div class="md-list-item-text" flex>
+                    <div layout="row"  class="md-accent-bg" flex>
+                        <div ng-click="vm.toggleItem(item)" flex>
+                            <md-icon md-font-icon="icon-chevron-right" class="icon-chevron-right s16 arrow"></md-icon>
+                            <span class="md-list-item-text yellow-50-fg" ng-class="{'active': item.expanded}" translate="{{item.translate}}" flex>{{ item.title }}</span>
+                        </div>
+                        <div ng-click="vm.selectItem(item.name, vm.electronicImpression.selectedTariffs, 1)" class="text-right" flex>
+                        </div>
+                    </div>
+                    <div ng-if="item.expanded" ng-include="item.template"></div>
+                </div>
+                <!-- <md-divider></md-divider> -->
+            </md-list-item>
+        </md-list>
+    </md-content>
+
+    <script type="text/ng-template" id="impression.html">
+        <md-content layout-padding>
+            <md-list flex>
+                <md-list-item ng-repeat="item2 in vm.impression.tariffs" ng-class="{'active': item2.expanded}" md-3-line>
+                    <div class="md-list-item-text" flex>
+                        <div layout="row" class="md-accent-bg" flex>
+                            <div ng-click="vm.toggleItem(item2)" flex>
+                                <md-icon md-font-icon="icon-chevron-right" class="icon-chevron-right s16 arrow"></md-icon>
+                                <span class="md-list-item-text yellow-50-fg" ng-class="{'active': item2.expanded}" translate="{{item2.translate}}" flex>{{ item2.title }}</span>
+                            </div>
+                            <div ng-click="vm.selectItem(item2.name, vm.impression.selectedTypes, 1)" class="text-right" flex>
+                            </div>
+                        </div>
+                        <div ng-if="item2.expanded" ng-include="item2.template"></div>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+
+        <script type="text/ng-template" id="operation.html">
+            <md-content layout-padding>
+                <md-list flex>
+                    <md-list-item ng-repeat="item1 in vm.operation.types" ng-class="{'active': item1.expanded}" md-3-line>
+                        <div class="md-list-item-text" flex>
+                            <div class="md-accent-bg" flex>
+                                <div ng-click="vm.toggleItem(item1)" flex>
+                                    <md-icon md-font-icon="icon-chevron-right" class="icon-chevron-right s16 arrow"></md-icon>
+                                    <span class="md-list-item-text yellow-50-fg" ng-class="{'active': item1.expanded}" translate="{{item1.translate}}" flex>{{ item1.title }}</span>
+                                </div>
+                                <div ng-click="vm.selectItem(item1.name, vm.operation.selectedTypes, 1)" class="text-right" flex>
+                                </div>
+                            </div>
+                            <div ng-if="item1.expanded" ng-include="item1.template"></div>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+
+            <script type="text/ng-template" id="veneer.html">
+                <md-content layout-padding>
+                    <form id="veneer-form" name="veneerForm">
+                        <div layout="column" layout-gt-sm="row">
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.MEMBER">Member</div>
+                                <md-input-container class="md-block md-icon-float mr-40">
+                                    <label translate="OFFER.PRICE_MEMBER">Price/Member</label>
+                                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                    <input type="number" step="0.50" ng-model="vm.offer.scanning.veneerScanPrice" ng-change="vm.updateVennerAntagonist()" required></br>
+                                    <div>{{vm.offer.scanning.veneerScanPrice | currency : '' }} €</div>
+                                </md-input-container>
+                            </div>
+                            <div flex>
+                            </div>
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.ANTAGONISTE_INSCRIPTION">Antagoniste/Inscription</div>
+                                <div layout="column">
+                                    <div layout="column" layout-lg="row">
+                                        <md-input-container class="md-block md-icon-float mr-40">
+                                            <label translate="OFFER.ANTAGONISTE">Price per Antagoniste/Bissregistrat</label>
+                                            <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                            <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.veneerAntScanPrice" required></br>
+                                            <div>{{vm.offer.scanning.veneerAntScanPrice | currency : '' }}</div>
+                                        </md-input-container>
+                                        
+                                        <div layout="row">
+                                            <md-checkbox class="mr-0" ng-model="veneerDiscount" ng-change="vm.offer.scanning.veneerPerReducAntScanPrice=0; " aria-label="DISCOUNT">
+                                            </md-checkbox>
+                                            <md-input-container class="mr-40">
+                                                <label translate="OFFER.DISCOUNT">Discount</label>
+                                                <md-icon md-font-icon="icon icon-percent"></md-icon>
+                                                <input flex type="number" min="0" step="0.50" ng-model="vm.offer.scanning.veneerPerReducAntScanPrice" ng-blur="vm.applyVennerDiscount()" ng-disabled="!veneerDiscount" aria-label="veneer-discount">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div>
+                                            <md-checkbox ng-model="vm.offer.scanning.veneerAntIncluded" ng-change="vm.offer.scanning.veneerAntScanPrice=0;vm.offer.scanning.veneerPerReducAntScanPrice=0;veneerDiscount=false; " aria-label="Included">
+                                                <span translate="OFFER.INCLUDED">included</span>
+                                                (<em class="h6" translate="OFFER.INCLUDED_MSG_VENEER">Antagonist Scan-Price included in Veneer Scan-Price</em>)
+                                               
+                                            </md-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REDUCTION LIST -->
+                        <md-list class="contacts-list">
+                            <div class="border-bottom" layout="row">
+                                <div class="md-accent-fg mt-15" translate="OFFER.PRICE_REDUCTION">Price reduction</div>
+                                <md-button class="md-icon-button" ng-click="vm.openReductionDialog($event)" aria-label="Add reduction" translate translate-attr-aria-label="">
+                                    <md-icon md-font-icon="icon-plus-circle md-accent-fg ml-5 mt-5"></md-icon>
+                                </md-button>
+                            </div>
+
+                            <!-- REDUCTION LIST HEADER -->
+                            <md-subheader class="md-no-sticky md-white-bg">
+                                <div class="list-title" layout="row" layout-align="start center"
+                                     ng-hide="editGroupForm.$visible">
+                                    <span flex="50" translate="OFFER.QUANTITY">Quantity</span>
+                                    <span flex="50" translate="OFFER.REDUCTION">Reduction</span>
+                                </div>
+                            </md-subheader>
+                            <!-- / REDUCTION LIST HEADER -->
+
+                            <!-- REDUCTION ITEM -->
+                            <md-list-item class="contact-item md-white-bg" md-ink-ripple
+                                          ng-repeat="reduction in vm.offer.scanning.reductions"
+                                          ng-click="vm.openReductionDialog($event, reduction)"
+                                          >
+                                <p class="text-truncate">
+                                    {{reduction.quantity}} stk
+                                </p>
+                                <p class="text-truncate">
+                                    {{reduction.reductionPercentage}} %
+                                </p>
+                            </md-list-item>
+                            <!-- REDUCTION ITEM -->
+                        </md-list>
+                        <!-- / REDUCTION LIST -->
+                    </form>
+                </md-content>
+            </script>
+            <script type="text/ng-template" id="krone.html">
+                <md-content layout-padding>
+                    <form id="krone-form" name="kroneForm">
+                        <div layout="column" layout-gt-sm="row">
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.MEMBER">Member</div>
+                                <md-input-container class="md-block md-icon-float mr-40">
+                                    <label translate="OFFER.PRICE_MEMBER">Price/Member</label>
+                                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                    <input type="number" step="0.50" ng-model="vm.offer.scanning.kroneScanPrice" ng-change="vm.updateKroneAntagonist()" required></br>
+                                    <div>{{vm.offer.scanning.kroneScanPrice | currency : '' }}</div>
+                                </md-input-container>
+                            </div>
+                            <div flex>
+                            </div>
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.ANTAGONISTE_INSCRIPTION">Antagoniste/Inscription</div>
+                                <div layout="column">
+                                    <div layout="column" layout-lg="row">
+                                        <md-input-container class="md-block md-icon-float mr-40">
+                                            <label translate="OFFER.ANTAGONISTE">Price per Antagoniste/Bissregistrat</label>
+                                            <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                            <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.kroneAntScanPrice" required></br>
+                                            <div>{{vm.offer.scanning.kroneAntScanPrice | currency : '' }}</div>
+                                        </md-input-container>
+                                        
+                                        <div layout="row">
+                                            <md-checkbox class="mr-0" ng-model="kroneDiscount" ng-change="vm.offer.scanning.kronePerReducAntScanPrice=0; " aria-label="DISCOUNT">
+                                            </md-checkbox>
+                                            <md-input-container class="mr-40">
+                                                <label translate="OFFER.DISCOUNT">Discount</label>
+                                                <md-icon md-font-icon="icon icon-percent"></md-icon>
+                                                <input flex type="number" min="0" step="0.50" ng-model="vm.offer.scanning.kronePerReducAntScanPrice" ng-blur="vm.applyKroneDiscount()" ng-disabled="!kroneDiscount" aria-label="krone-discount">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div>
+                                            <md-checkbox ng-model="vm.offer.scanning.kroneAntIncluded" ng-change="vm.offer.scanning.kroneAntScanPrice=0;vm.offer.scanning.kronePerReducAntScanPrice=0;kroneDiscount=false; " aria-label="Included">
+                                                <span translate="OFFER.INCLUDED">included</span>
+                                                (<em class="h6" translate="OFFER.INCLUDED_MSG_KRONE">Antagonist Scan-Price included in Krone Scan-Price</em>)
+                                            </md-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REDUCTION LIST -->
+                        <md-list class="contacts-list">
+                            <div class="border-bottom" layout="row">
+                                <div class="md-accent-fg mt-15" translate="OFFER.PRICE_REDUCTION">Price reduction</div>
+                                <md-button class="md-icon-button" ng-click="vm.openReductionDialog($event)" aria-label="Add reduction" translate translate-attr-aria-label="">
+                                    <md-icon md-font-icon="icon-plus-circle md-accent-fg ml-5 mt-5"></md-icon>
+                                </md-button>
+                            </div>
+
+                            <!-- REDUCTION LIST HEADER -->
+                            <md-subheader class="md-no-sticky md-white-bg">
+                                <div class="list-title" layout="row" layout-align="start center"
+                                     ng-hide="editGroupForm.$visible">
+                                    <span flex="50" translate="OFFER.QUANTITY">Quantity</span>
+                                    <span flex="50" translate="OFFER.REDUCTION">Reduction</span>
+                                </div>
+                            </md-subheader>
+                            <!-- / REDUCTION LIST HEADER -->
+
+                            <!-- REDUCTION ITEM -->
+                            <md-list-item class="contact-item md-white-bg" md-ink-ripple
+                                          ng-repeat="reduction in vm.offer.scanning.reductions"
+                                          ng-click="vm.openReductionDialog($event, reduction)"
+                                          >
+                                <p class="text-truncate">
+                                    {{reduction.quantity}} stk
+                                </p>
+                                <p class="text-truncate">
+                                    {{reduction.reductionPercentage}} %
+                                </p>
+                            </md-list-item>
+                            <!-- REDUCTION ITEM -->
+                        </md-list>
+                        <!-- / REDUCTION LIST -->
+                    </form>
+                </md-content>
+            </script>
+            <script type="text/ng-template" id="bridge.html">
+                <md-content layout-padding>
+                    <form id="bridge-form" name="bridgeForm">
+                        <div layout="column" layout-gt-sm="row">
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.MEMBER">Member</div>
+                                <md-input-container class="md-block md-icon-float mr-40">
+                                    <label translate="OFFER.PRICE_MEMBER">Price/Member</label>
+                                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                    <input type="number" step="0.50" ng-model="vm.offer.scanning.bridgeScanPrice" ng-change="vm.updateBridgeAntagonist()" required></br>
+                                    <div>{{vm.offer.scanning.bridgeScanPrice | currency : '' }}</div>
+                                </md-input-container>
+                            </div>
+                            <div flex>
+                            </div>
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.ANTAGONISTE_INSCRIPTION">Antagoniste/Inscription</div>
+                                <div layout="column">
+                                    <div layout="column" layout-lg="row">
+                                        <md-input-container class="md-block md-icon-float mr-40">
+                                            <label translate="OFFER.ANTAGONISTE">Price per Antagoniste/Bissregistrat</label>
+                                            <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                            <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.bridgeAntScanPrice" required></br>
+                                            <div>{{vm.offer.scanning.bridgeAntScanPrice | currency : '' }}</div>
+                                        </md-input-container>
+                                        
+                                        <div layout="row">
+                                            <md-checkbox class="mr-0" ng-model="bridgeDiscount" ng-change="vm.offer.scanning.bridgePerReducAntScanPrice=0; " aria-label="DISCOUNT">
+                                            </md-checkbox>
+                                            <md-input-container class="mr-40">
+                                                <label translate="OFFER.DISCOUNT">Discount</label>
+                                                <md-icon md-font-icon="icon icon-percent"></md-icon>
+                                                <input flex type="number" min="0" step="0.50" ng-model="vm.offer.scanning.bridgePerReducAntScanPrice" ng-blur="vm.applyBridgeDiscount()" ng-disabled="!bridgeDiscount" aria-label="bridge-discount">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div>
+                                            <md-checkbox ng-model="vm.offer.scanning.bridgeAntIncluded" ng-change="vm.offer.scanning.bridgeAntScanPrice=0;vm.offer.scanning.bridgePerReducAntScanPrice=0;bridgeDiscount=false; " aria-label="Included">
+                                                <span translate="OFFER.INCLUDED">included</span>
+                                                (<em class="h6" translate="OFFER.INCLUDED_MSG_BRIDGE">Antagonist Scan-Price included in Bridge Scan-Price</em>)
+                                            </md-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REDUCTION LIST -->
+                        <md-list class="contacts-list">
+                            <div class="border-bottom" layout="row">
+                                <div class="md-accent-fg mt-15" translate="OFFER.PRICE_REDUCTION">Price reduction</div>
+                                <md-button class="md-icon-button" ng-click="vm.openReductionDialog($event)" aria-label="Add reduction" translate translate-attr-aria-label="">
+                                    <md-icon md-font-icon="icon-plus-circle md-accent-fg ml-5 mt-5"></md-icon>
+                                </md-button>
+                            </div>
+
+                            <!-- REDUCTION LIST HEADER -->
+                            <md-subheader class="md-no-sticky md-white-bg">
+                                <div class="list-title" layout="row" layout-align="start center"
+                                     ng-hide="editGroupForm.$visible">
+                                    <span flex="50" translate="OFFER.QUANTITY">Quantity</span>
+                                    <span flex="50" translate="OFFER.REDUCTION">Reduction</span>
+                                </div>
+                            </md-subheader>
+                            <!-- / REDUCTION LIST HEADER -->
+
+                            <!-- REDUCTION ITEM -->
+                            <md-list-item class="contact-item md-white-bg" md-ink-ripple
+                                          ng-repeat="reduction in vm.offer.scanning.reductions"
+                                          ng-click="vm.openReductionDialog($event, reduction)"
+                                          >
+                                <p class="text-truncate">
+                                    {{reduction.quantity}} stk
+                                </p>
+                                <p class="text-truncate">
+                                    {{reduction.reductionPercentage}} %
+                                </p>
+                            </md-list-item>
+                            <!-- REDUCTION ITEM -->
+                        </md-list>
+                        <!-- / REDUCTION LIST -->
+                    </form>
+                </md-content>
+            </script>
+            <script type="text/ng-template" id="in-onlay.html">
+                <md-content layout-padding>
+                    <form id="inOnlay-form" name="inOnlayForm">
+                        <div layout="column" layout-gt-sm="row">
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.MEMBER">Member</div>
+                                <md-input-container class="md-block md-icon-float mr-40">
+                                    <label translate="OFFER.PRICE_MEMBER">Price/Member</label>
+                                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                    <input type="number" step="0.50" ng-model="vm.offer.scanning.inOnlayScanPrice" ng-change="vm.updateInOnlayAntagonist()" required></br>
+                                    <div>{{vm.offer.scanning.inOnlayScanPrice | currency : '' }}</div>
+                                </md-input-container>
+                            </div>
+                            <div flex>
+                            </div>
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.ANTAGONISTE_INSCRIPTION">Antagoniste/Inscription</div>
+                                <div layout="column">
+                                    <div layout="column" layout-lg="row">
+                                        <md-input-container class="md-block md-icon-float mr-40">
+                                            <label translate="OFFER.ANTAGONISTE">Price per Antagoniste/Bissregistrat</label>
+                                            <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                            <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.inOnlayAntScanPrice" required></br>
+                                            <div>{{vm.offer.scanning.inOnlayAntScanPrice | currency : '' }}</div>
+                                        </md-input-container>
+                                        
+                                        <div layout="row">
+                                            <md-checkbox class="mr-0" ng-model="inOnlayDiscount" ng-change="vm.offer.scanning.inOnlayPerReducAntScanPrice=0; " aria-label="DISCOUNT">
+                                            </md-checkbox>
+                                            <md-input-container class="mr-40">
+                                                <label translate="OFFER.DISCOUNT">Discount</label>
+                                                <md-icon md-font-icon="icon icon-percent"></md-icon>
+                                                <input flex type="number" min="0" step="0.50" ng-model="vm.offer.scanning.inOnlayPerReducAntScanPrice" ng-blur="vm.applyInOnlayDiscount()" ng-disabled="!inOnlayDiscount" aria-label="inOnlay-discount">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div>
+                                            <md-checkbox ng-model="vm.offer.scanning.inOnlayAntIncluded" ng-change="vm.offer.scanning.inOnlayAntScanPrice=0;vm.offer.scanning.inOnlayPerReducAntScanPrice=0;inOnlayDiscount=false; " aria-label="Included">
+                                                <span translate="OFFER.INCLUDED">included</span>
+                                                (<em class="h6" translate="OFFER.INCLUDED_MSG_IN_ONLAY">Antagonist Scan-Price included in In/Onlay Scan-Price</em>)
+                                            </md-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REDUCTION LIST -->
+                        <md-list class="contacts-list">
+                            <div class="border-bottom" layout="row">
+                                <div class="md-accent-fg mt-15" translate="OFFER.PRICE_REDUCTION">Price reduction</div>
+                                <md-button class="md-icon-button" ng-click="vm.openReductionDialog($event)" aria-label="Add reduction" translate translate-attr-aria-label="">
+                                    <md-icon md-font-icon="icon-plus-circle md-accent-fg ml-5 mt-5"></md-icon>
+                                </md-button>
+                            </div>
+
+                            <!-- REDUCTION LIST HEADER -->
+                            <md-subheader class="md-no-sticky md-white-bg">
+                                <div class="list-title" layout="row" layout-align="start center"
+                                     ng-hide="editGroupForm.$visible">
+                                    <span flex="50" translate="OFFER.QUANTITY">Quantity</span>
+                                    <span flex="50" translate="OFFER.REDUCTION">Reduction</span>
+                                </div>
+                            </md-subheader>
+                            <!-- / REDUCTION LIST HEADER -->
+
+                            <!-- REDUCTION ITEM -->
+                            <md-list-item class="contact-item md-white-bg" md-ink-ripple
+                                          ng-repeat="reduction in vm.offer.scanning.reductions"
+                                          ng-click="vm.openReductionDialog($event, reduction)"
+                                          >
+                                <p class="text-truncate">
+                                    {{reduction.quantity}} stk
+                                </p>
+                                <p class="text-truncate">
+                                    {{reduction.reductionPercentage}} %
+                                </p>
+                            </md-list-item>
+                            <!-- REDUCTION ITEM -->
+                        </md-list>
+                        <!-- / REDUCTION LIST -->
+                    </form>
+                </md-content>
+            </script>
+            <script type="text/ng-template" id="implantat.html">
+                <md-content layout-padding>
+                    <form id="implantat-form" name="implantatForm">
+                        <div layout="column" layout-gt-sm="row">
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.MEMBER">Member</div>
+                                <md-input-container class="md-block md-icon-float mr-40">
+                                    <label translate="OFFER.PRICE_MEMBER">Price/Member</label>
+                                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                    <input type="number" step="0.50" ng-model="vm.offer.scanning.implantatScanPrice" ng-change="vm.updateImplantatAntagonist()" required></br>
+                                    <div>{{vm.offer.scanning.implantatScanPrice | currency : '' }}</div>
+                                </md-input-container>
+                            </div>
+                            <div flex>
+                            </div>
+                            <div layout="column" flex-gt-sm="45">
+                                <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.ANTAGONISTE_INSCRIPTION">Antagoniste/Inscription</div>
+                                <div layout="column">
+                                    <div layout="column" layout-lg="row">
+                                        <md-input-container class="md-block md-icon-float mr-40">
+                                            <label translate="OFFER.ANTAGONISTE">Price per Antagoniste/Bissregistrat</label>
+                                            <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                                            <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.implantatAntScanPrice" required></br>
+                                            <div>{{vm.offer.scanning.implantatAntScanPrice | currency : '' }}</div>
+                                        </md-input-container>
+                                        
+                                        <div layout="row">
+                                            <md-checkbox class="mr-0" ng-model="implantatDiscount" ng-change="vm.offer.scanning.implantatPerReducAntScanPrice=0; " aria-label="DISCOUNT">
+                                            </md-checkbox>
+                                            <md-input-container class="mr-40">
+                                                <label translate="OFFER.DISCOUNT">Discount</label>
+                                                <md-icon md-font-icon="icon icon-percent"></md-icon>
+                                                <input flex type="number" min="0" step="0.50" ng-model="vm.offer.scanning.implantatPerReducAntScanPrice" ng-blur="vm.applyImplantatDiscount()" ng-disabled="!implantatDiscount" aria-label="implantat-discount">
+                                            </md-input-container>
+                                        </div>
+                                    </div>
+                                    <div layout="row">
+                                        <div>
+                                            <md-checkbox ng-model="vm.offer.scanning.implantatAntIncluded" ng-change="vm.offer.scanning.implantatAntScanPrice=0;vm.offer.scanning.implantatPerReducAntScanPrice=0;implantatDiscount=false; " aria-label="Included">
+                                                <span translate="OFFER.INCLUDED">included</span>
+                                                (<em class="h6" translate="OFFER.INCLUDED_MSG_IMPLANTAT">Antagonist Scan-Price included in Implantat Scan-Price</em>)
+                                            </md-checkbox>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- REDUCTION LIST -->
+                        <md-list class="contacts-list">
+                            <div class="border-bottom" layout="row">
+                                <div class="md-accent-fg mt-15" translate="OFFER.PRICE_REDUCTION">Price reduction</div>
+                                <md-button class="md-icon-button" ng-click="vm.openReductionDialog($event)" aria-label="Add reduction" translate translate-attr-aria-label="">
+                                    <md-icon md-font-icon="icon-plus-circle md-accent-fg ml-5 mt-5"></md-icon>
+                                </md-button>
+                            </div>
+
+                            <!-- REDUCTION LIST HEADER -->
+                            <md-subheader class="md-no-sticky md-white-bg">
+                                <div class="list-title" layout="row" layout-align="start center"
+                                     ng-hide="editGroupForm.$visible">
+                                    <span flex="50" translate="OFFER.QUANTITY">Quantity</span>
+                                    <span flex="50" translate="OFFER.REDUCTION">Reduction</span>
+                                </div>
+                            </md-subheader>
+                            <!-- / REDUCTION LIST HEADER -->
+
+                            <!-- REDUCTION ITEM -->
+                            <md-list-item class="contact-item md-white-bg" md-ink-ripple
+                                          ng-repeat="reduction in vm.offer.scanning.reductions"
+                                          ng-click="vm.openReductionDialog($event, reduction)"
+                                          >
+                                <p class="text-truncate">
+                                    {{reduction.quantity}} stk
+                                </p>
+                                <p class="text-truncate">
+                                    {{reduction.reductionPercentage}} %
+                                </p>
+                            </md-list-item>
+                            <!-- REDUCTION ITEM -->
+                        </md-list>
+                        <!-- / REDUCTION LIST -->
+                    </form>
+                </md-content>
+            </script>
+        </script>
+        <script type="text/ng-template" id="quadrant.html">
+            <div class="p-30" layout="column" layout-gt-sm="row" flex>
+                <div flex-gt-sm="45">
+                    <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.IMPRESSION_QUADRANT">Impression by Quadrant
+                    </div>
+                    <md-input-container class="md-block md-icon-float mr-40">
+                        <label translate="OFFER.QUADRANT_SCANNING_PRICE">Quadrant Scanning Price</label>
+                        <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                        <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.quadScanPrice"></br>
+                        <div>{{vm.offer.scanning.quadScanPrice | currency : '' }}</div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block md-icon-float mr-40">
+                        <label translate="OFFER.QUADRANT_ANTAG_SCANNING_PRICE">Quadrant Antagoniste Scanning Price</label>
+                        <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                        <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.quadAntScanPrice"></br>
+                        <div>{{vm.offer.scanning.quadAntScanPrice | currency : '' }}</div>
+                    </md-input-container>
+
+                   <md-input-container class="md-block md-icon-float mr-40">
+                        <label translate="OFFER.QUADRANT_ANTAG_SCANNING_DURATION">Quadrant Antagoniste Scanning Duration</label>
+                        <md-icon md-font-icon="icon icon-timelapse"></md-icon>
+                        <input type="number" step="1" ng-model="vm.offer.scanning.quadScanDuration"></br>
+                    </md-input-container>
+                </div>
+                <div flex>
+                </div>
+                <div flex-gt-sm="45">
+                    <div class="pl-10 md-accent-bg yellow-50-fg" translate="OFFER.IMPRESSION_FRONT">Impression by FrontToothRegion
+                    </div>
+                    <md-input-container class="md-block md-icon-float mr-40">
+                        <label translate="OFFER.FRONT_SCANNING_PRICE">FrontToothRegion Scanning Price</label>
+                        <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                        <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.frontScanPrice"></br>
+                        <div>{{vm.offer.scanning.frontScanPrice | currency : '' }}</div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block md-icon-float mr-40">
+                        <label translate="OFFER.FRONT_ANTAG_SCANNING_PRICE">FrontToothRegion Antagoniste Scanning Price</label>
+                        <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                        <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.scanning.frontAntScanPrice"></br>
+                        <div>{{vm.offer.scanning.frontAntScanPrice | currency : '' }}</div>
+                    </md-input-container>
+
+                   <md-input-container class="md-block md-icon-float mr-40">
+                        <label translate="OFFER.FRONT_ANTAG_SCANNING_DURATION">FrontToothRegion Antagoniste Scanning Duration</label>
+                        <md-icon md-font-icon="icon icon-timelapse"></md-icon>
+                        <input type="number" step="1" ng-model="vm.offer.scanning.frontScanDuration"></br>
+                        <div>{{vm.offer.scanning.frontScanDuration}} min</div>
+                    </md-input-container>
+                </div>
+            </div>
+        </script>
+    </script>
+
+    <script type="text/ng-template" id="archiving.html">
+        <md-content layout-padding>
+            <md-list flex>
+                <md-list-item ng-repeat="item3 in vm.archiving.prices" ng-class="{'active': item3.expanded}" md-3-line>
+                    <div class="md-list-item-text" flex>
+                        <div layout="row"  class="md-accent-bg" flex>
+                            <div ng-click="vm.toggleItem(item3)" flex>
+                                <md-icon md-font-icon="icon-chevron-right" class="icon-chevron-right s16 arrow"></md-icon>
+                                <span class="md-list-item-text yellow-50-fg" ng-class="{'active': item3.expanded}" translate="{{item3.translate}}" flex>{{ item3.title }}</span>
+                            </div>
+                            <div ng-click="vm.selectItem(item3.name, vm.electronicImpression.selectedTariffs, 1)" class="text-right" flex>
+                            </div>
+                        </div>
+                        <div ng-if="item3.expanded" ng-include="item3.template"></div>
+                    </div>
+                </md-list-item>
+            </md-list>
+        </md-content>
+    </script>
+    <script type="text/ng-template" id="archiving-tooth.html">
+        <div layout="column" layout-gt-sm="row">
+            <div flex-gt-sm="45">
+                <md-input-container class="md-block md-icon-float mr-40">
+                    <label translate="OFFER.TOOTH_ARCHIVING_PRICE">Tooth Archiving Price</label>
+                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                    <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.dentArchivingPrice"></br>
+                    <div>{{vm.offer.dentArchivingPrice | currency : '' }}</div>
+                </md-input-container>
+
+                <md-input-container class="md-block md-icon-float mr-40">
+                    <label translate="OFFER.TOOTH_ANTAG_ARCHIVING_PRICE">Tooth Antagoniste Archiving Price</label>
+                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                    <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.dentAntArchivingPrice"></br>
+                    <div>{{vm.offer.dentAntArchivingPrice | currency : '' }}</div>
+                </md-input-container>
+            </div>
+            <div flex>
+            </div>
+            <div flex-gt-sm="45">
+            </div>
+        </div>
+    </script>
+    <script type="text/ng-template" id="archiving-quadrant.html">
+        <div layout="column" layout-gt-sm="row">
+            <div flex-gt-sm="45">
+                <md-input-container class="md-block md-icon-float mr-40">
+                    <label translate="OFFER.QUADRANT_ARCHIVING_PRICE">Quadrant Archiving Price</label>
+                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                    <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.quadArchivingPrice"></br>
+                    <div>{{vm.offer.quadArchivingPrice | currency : '' }}</div>
+                </md-input-container>
+
+                <md-input-container class="md-block md-icon-float mr-40">
+                    <label translate="OFFER.QUADRANT_ANTAG_ARCHIVING_PRICE">Quadrant Antagoniste Archiving Price</label>
+                    <md-icon md-font-icon="icon icon-currency-eur"></md-icon>
+                    <input type="number" placeholder="00,00" step="0.50" ng-model="vm.offer.quadAntArchivingPrice"></br>
+                    <div>{{vm.offer.quadAntArchivingPrice | currency : '' }}</div>
+                </md-input-container>
+            </div>
+            <div flex>
+            </div>
+            <div flex-gt-sm="45">
+            </div>
+        </div>
+    </script>
+    </div>

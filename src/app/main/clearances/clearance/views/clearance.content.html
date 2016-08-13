@@ -1,0 +1,23 @@
+        <div class="extra-padding">
+            <md-tabs md-dynamic-height
+                     md-border-bottom
+                     md-selected="vm.statistics.selectedTabIndex">
+                <md-tab ng-repeat="tab in vm.tabs"
+                        ng-if="(tab.name !== 'pisDetails') || ((tab.name === 'pisDetails') && !vm.cleared)"
+                        label="{{tab.title}}"
+                        ng-click="vm.getContent(tab.name)">
+                    <div ng-include src="tab.src"></div>
+                </md-tab>
+            </md-tabs>
+
+            <!--div class="alert alert-success" ng-hide="!vm.message" id="success-message" ng-bind="vm.message"></div>
+            <div class="alert alert-danger"  ng-hide="!vm.error"   id="error-message"   ng-bind="vm.error"></div-->
+
+            <md-button type="submit" class="md-raised md-accent submit-button" id="examine" ng-click="vm.examineProtocol()">Protokoll anschauen</md-button>
+            <md-button ng-if="!vm.cleared" type="submit" class="md-raised md-accent" id="approve" ng-click="vm.approve()" ng-disabled="!hasRole('ADMIN')">Freigeben</md-button>
+            <md-button ng-if="!vm.cleared" type="submit" class="md-raised md-accent" id="abandon" ng-click="vm.abandon()" ng-disabled="!hasRole('ADMIN')">Verwerfen</md-button>
+            <div layout="row"layout-padding>
+			    <embed ng-if="!vm.protocolFileError" ng-src="{{vm.protocolFileContent}}" style="width:100%;height:500px;"></embed>
+                <div class="alert alert-danger" ng-if="vm.protocolFileError" id="protocol-file-error-message" ng-bind="vm.protocolFileError"></div>
+            </div>
+        </div>

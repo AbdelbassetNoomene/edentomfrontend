@@ -1,0 +1,63 @@
+#layout-horizontal-navigation {
+
+    #toolbar {
+        height: 128px;
+        min-height: 128px;
+        max-height: 128px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+        .top-row {
+            padding: 0 0 0 16px;
+
+            .navigation-toggle {
+                height: $toolbarHeight;
+                border-right: 1px solid rgba(0, 0, 0, 0.12);
+                margin-right: 16px;
+
+                .md-button {
+                    margin: 0;
+                    width: $toolbarHeight;
+                    height: $toolbarHeight;
+                }
+            }
+
+        .logo {
+
+            .logo-image {
+                display: block;
+                width: 172px;
+                min-width: 172px;
+                height: 37px;
+                line-height: 37px;
+                text-align: center;
+                color: #FFFFFF;
+                font-size: 16px;
+                font-weight: 500;
+                border-radius: 2px;
+            }
+
+                .logo-text {
+                    color: rgba(0, 0, 0, 0.87);
+                    margin-left: 16px;
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .bottom-row {
+            font-size: 14px;
+        }
+
+    }
+}
+
+// RESPONSIVE
+@media only screen and (max-width: $layout-breakpoint-sm) {
+
+    #layout-horizontal-navigation {
+
+        #toolbar {
+            padding: 0;
+        }
+    }
+}

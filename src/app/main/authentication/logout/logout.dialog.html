@@ -1,0 +1,32 @@
+<md-dialog class="logout-dialog app-dialog" aria-label="Logout">
+    <form name="logout" class="md-inline-form" novalidate>
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title" translate="LOGOUT.TITLE">Logout</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" translate translate-attr-aria-label="LOGOUT.CLOSE_DIALOG">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content ms-scroll>
+            <div layout="column">
+                <div translate="LOGOUT.MESSAGE">Wollen Sie wirklich ausloggen?</div>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <md-button ng-click="vm.logout()" class="md-raised" aria-label="Ausloggen"
+                       translate="LOGOUT.CONFIRM"
+                       translate-attr-aria-label="LOGOUT.CONFIRM">
+                Ausloggen
+            </md-button>
+
+            <md-button ng-click="vm.closeDialog()" class="md-raised" aria-label="Abbrechen"
+                       translate="LOGOUT.CANCEL"
+                       translate-attr-aria-label="LOGOUT.CANCEL">
+                Abbrechen
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

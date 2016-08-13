@@ -1,0 +1,42 @@
+<div id="login" layout="column" flex ms-scroll ms-padding>
+
+    <div id="login-form-wrapper" layout="column" layout-align="center center">
+        <div id="login-form"> <!-- class="md-whiteframe-8dp" -->
+
+            <div class="title" translate="LOGIN.TITLE">Log in to your account</div>
+
+            <div class="alert alert-danger" ng-show="vm.error" id="error-message" ng-bind="vm.errorMessage"></div>
+
+            <form name="loginForm" novalidate>
+                <md-input-container class="md-block" md-no-float>
+                    <input type="text" name="userName" ng-model="vm.form.userName" placeholder="UserName"
+                           translate translate-attr-placeholder="LOGIN.USERNAME"
+                           required>
+                    <div ng-messages="loginForm.userName.$error" role="alert" multiple>
+                        <div ng-message="required">
+                            <span translate="LOGIN.ERRORS.USERNAME_REQUIRED">UserName field is required</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block" md-no-float>
+                    <input type="password" name="password" ng-model="vm.form.password" placeholder="Password"
+                           translate translate-attr-placeholder="LOGIN.PASSWORD"
+                           required>
+                    <div ng-messages="loginForm.password.$error" role="alert">
+                        <div ng-message="required">
+                            <span translate="LOGIN.ERRORS.PASSWORD_REQUIRED">Password field is required</span>
+                        </div>
+                    </div>
+                </md-input-container>
+
+                <md-button type="submit" class="md-raised md-accent submit-button" aria-label="LOG IN"
+                           ng-disabled="loginForm.$invalid || loginForm.$pristine"
+                           translate="LOGIN.LOG_IN" translate-attr-aria-label="LOGIN.LOG_IN"
+                           ng-click="vm.login()">
+                    LOG IN
+                </md-button>
+            </form>
+        </div>
+    </div>
+</div>

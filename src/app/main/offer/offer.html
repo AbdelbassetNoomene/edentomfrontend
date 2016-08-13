@@ -1,0 +1,51 @@
+<div id="offer" class="page-layout simple fullwidth" layout="column">
+
+    <!-- HEADER -->
+    <div class="header small md-accent-bg" layout="row" layout-align="space-between">
+        <div layout="column" layout-align="space-between">
+            <div class="breadcrumb" layout="row" layout-align="start center">
+                <md-icon md-font-icon="icon-home" class="s20"></md-icon>
+                <md-icon md-font-icon="icon-chevron-right" class="s20 separator"></md-icon>
+                <span class="parent" translate="OFFER.TITLE"></span>
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <form name="addOfferForm" class="content md-inline-formcontent" layout="column">
+        <div class="md-accent-fg border-bottom" translate="OFFER.ADD_OFFER">ADD OFFER</div>
+        <div layout="row" layout-xs="column"><!-- width < 600px -->
+            <div layout="row">
+                <div class="mr-20">
+                    <md-datepicker flex ng-model="vm.offer.startDate" md-placeholder="Start Date"></md-datepicker>
+                </div>
+                <div class="mr-25">
+                    <md-datepicker flex ng-model="vm.offer.endDate" md-placeholder="End Date"></md-datepicker>
+                </div>
+            </div>
+            <div>
+                <md-input-container class="mt-0">
+                  <md-switch class="mt-5" ng-model="vm.offer.active">{{vm.offer.active ? "Active" : "Desactive"}}</md-switch>
+                </md-input-container>
+            </div>
+        </div>
+        <md-tabs md-dynamic-height md-stretch-tabs md-selected="vm.selectedIndex">
+            <md-tab label="Mobiler elektronische abformung"  ui-sref="app.offer"></md-tab>
+            <md-tab label="Abdruck Digitalisieren"           ui-sref="app.offer.digitizing"></md-tab>
+            <md-tab label="Share 3D Scanner"                 ui-sref="app.offer"></md-tab>
+            <md-tab label="3D-Design"                        ui-sref="app.offer"></md-tab>
+            <md-tab label="Simulation"                       ui-sref="app.offer"></md-tab>
+            <md-tab label="CNC-Fertigung"                    ui-sref="app.offer"></md-tab>
+        </md-tabs>
+
+        <md-content ui-view="tabContent" flex class="card md-whiteframe-4dp"></md-content>
+        <div>
+            <md-button class="md-raised md-background md-accent" ng-click="vm.sendForm()" ng-disabled="addOfferForm.$invalid">
+                <span translate="OFFER.SAVE">SAVE</span>
+            </md-button>
+        </div>
+    </form>
+    <!-- / CONTENT -->
+
+</div>

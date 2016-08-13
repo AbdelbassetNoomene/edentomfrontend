@@ -1,0 +1,179 @@
+<div layout="column">
+    <div ng-repeat="instrument in vm.selectedScanagent.instruments" layout="row" layout-align="start center" flex>
+        <!--div class="text-center" aria-label="Instrument" flex>
+            <img class="avatar huge border" alt="Instrument" ng-src="assets/images/3DScanner und Materialen/3DScanner/CS3500 INTRAOALSCANNER/Bild.jpg"/>
+        </div-->
+        <div ng-if="instrument.image" class="avatar-huge-wrapper" aria-label="Instrument"><!-- hide-xs -->
+            <img md-menu-align-target class="avatar huge border" ng-src="assets/images/instruments/{{instrument.image}}" />
+            <md-icon md-font-icon ng-class="instrument.availabilityStatus.icon"
+                     ng-style="{'color': instrument.availabilityStatus.color }"
+                     class="icon status s20"></md-icon>
+        </div>
+        <!--div class="avatar-wrapper" aria-label="Instrument" flex show-xs>
+            <img md-menu-align-target class="avatar border" ng-src="assets/images/instruments/{{instrument.image}}" ng-if="instrument.image"/>
+            <md-icon md-font-icon ng-class="instrument.availabilityStatus.icon"
+                     ng-style="{'color': instrument.availabilityStatus.color }"
+                     class="icon status s16">
+            </md-icon>
+        </div-->
+        <div layout="row" layout-align="start center" flex>
+            <div aria-label="3D Scanner Model" flex>
+                <div class="font-weight-500 font-size-14" translate="PRICE_LIST.MODEL">MODEL</div>
+                <div>{{instrument.productName}}</div>
+            </div>
+            <div aria-label="Producer" flex>
+                <div class="font-weight-500 font-size-14" translate="FILTER.PRODUCER">PRODUCER</div>
+                <div>{{instrument.producer}}</div>
+            </div>
+            <div class="text-center" aria-label="Voraussichtliche Ankunft" flex>
+                <md-icon md-font-icon="icon-file-pdf md-accent-fg" class="icon s40 yellow-50-fg"></md-icon>
+            </div>
+        </div>
+    </div>
+
+    <md-content>
+        <md-list flex>
+            <md-list-item ng-repeat="item in vm.pricesList.tariffs" ng-class="{'active': item.expanded}" md-3-line>
+                <div class="md-list-item-text" flex>
+                    <div layout="row" flex>
+                        <div ng-click="vm.toggleItem(item)" flex>
+                            <md-icon md-font-icon="icon-chevron-right" class="icon-chevron-right s16 arrow"></md-icon>
+                            <span class="md-list-item-text md-accent-fg" ng-class="{'active': item.expanded}" flex>{{ item.title }}</span>
+                        </div>
+                        <div ng-click="vm.selectItem(item.name, vm.pricesList.selectedTariffs, 1)" class="text-right" flex>
+                            <md-checkbox ng-checked="vm.exists(item.name, vm.pricesList.selectedTariffs)" aria-label="{{item.title}}"></md-checkbox>
+                        </div>
+                    </div>
+                    <div ng-if="item.expanded" ng-include="item.template"></div>
+                </div>
+                <!-- <md-divider></md-divider> -->
+            </md-list-item>
+        </md-list>
+    </md-content>
+
+    <script type="text/ng-template" id="tariff-by-operation.html">
+      <table class="simple clickable tariff-table" ms-responsive-table>
+          <thead class="md-accent-bg">
+              <tr>
+                  <th translate="PRICE_LIST.IMPRESSION">IMPRESSION</th>
+                  <th translate="PRICE_LIST.PRICE">Preis</th> 
+                  <th translate="PRICE_LIST.REGISTRAT">Bissregistrat</th> 
+                  <th translate="PRICE_LIST.ARCHIVING">Archivierung</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr ng-repeat="scanOpRate in vm.selectedScanagent.instruments[0].scanOperationRates">
+                <td>{{scanOpRate.type}}</td> 
+                <td><span ng-if="scanOpRate.designPrice">{{scanOpRate.designPrice}} €</span></td> <!--scanOpRate.digitalImpressionPrice-->
+                <td><span ng-if="scanOpRate.antagonistPrice">{{scanOpRate.antagonistPrice}} €</span></td>
+                <td><span ng-if="scanOpRate.archivingPrice">{{scanOpRate.archivingPrice}} €</span></td> 
+              </tr>
+          </tbody>
+          <tfoot>
+              <tr>
+                  <td class="text-italic text-right" colspan="4" translate="PRICE_LIST.TIERED_PRICING">Tiered pricing of 15% from 6 scan operations</td> 
+              </tr>
+          </tfoot>
+      </table>
+    </script>
+
+    <script type="text/ng-template" id="tariff-by-quadrant.html">
+      <table ms-responsive-table class="simple clickable tariff-table td-same-width">
+          <thead class="md-accent-bg">
+              <tr>
+                  <th colspan="4">
+                      <div layout="row">
+                          <div flex translate="PRICE_LIST.PRICE_PER_QUADRANT">PRICE PER QUADRANT</div>
+                          <div flex="10" flex-xs="15" class="yellow-50-fg">28,00</div>  <!-- flex 15 on width < 600px -->
+                          <div flex="10" flex-xs="15">EURO</div>                        <!-- flex 15 on width < 600px -->
+                      </div>
+                  </th>
+              </tr>
+          </thead>
+          <tbody class="text-center">
+              <tr>
+                <td class="h4"><span translate="PRICE_LIST.AGAINST_QUADRANT">Against Quadrant</span> 18,00 €</td>
+                <td>
+                  <div class="h4"><span translate="PRICE_LIST.ARCHIVING">Archiving</span> 2,00 €</div>
+                  <div ng-class="font-size-10 ml-10" md-highlight-text="searchTerm">per 3D File</div>
+                </td> 
+                <td>
+                  <div class="h4">3D Design</div>
+                  <div ng-class="font-size-10 ml-10" translate="PRICE_LIST.TYP_DEPENDING_RESTORATION">Type depends on restoration's type, see table top</div>
+                </td> 
+              </tr> 
+          </tbody>
+      </table>
+      <table ms-responsive-table class="simple clickable tariff-table td-same-width">
+          <thead class="md-accent-bg">
+              <tr>
+                  <th colspan="4">
+                      <div layout="row">
+                          <div flex translate="PRICE_LIST.PRICE_PER_ANTERIOR_AREA">PRICE PER QUADRANT</div>
+                          <div flex="10" flex-xs="15" class="yellow-50-fg">30,00</div> <!-- flex 15 on width < 600px -->
+                          <div flex="10" flex-xs="15">EURO</div>                       <!-- flex 15 on width < 600px -->
+                      </div>
+                  </th>
+              </tr>
+          </thead>
+          <tbody class="text-center">
+              <tr>
+                <td class="h4">
+                      <span translate="PRICE_LIST.AGAINST_PER_ANTERIOR_AREA">Aga.Per anterior area</span> 20,00 €
+                </td>
+                <td>
+                  <span class="h4">
+                      <span translate="PRICE_LIST.ARCHIVING">Archiving</span> 2,00 €
+                  </span>
+                  <span class="font-size-10 text-sub text-right"> per 3D File</span>
+                </td> 
+                <td>
+                  <div class="h4">3D Design</div>
+                  <div class="font-size-10 ml-10" translate="PRICE_LIST.TYP_DEPENDING_RESTORATION">Type depends on restoration's type, see table top</div>                          
+                </td> 
+              </tr> 
+          </tbody>
+      </table>
+    </script>
+
+    <script type="text/ng-template" id="tariff-by-entire-kiefer.html">
+      <table ms-responsive-table class="simple clickable tariff-table td-same-width">
+         <thead class="md-accent-bg">
+             <tr>
+                 <th colspan="4">
+                     <div layout="row">
+                         <div flex translate="PRICE_LIST.PRICE_PER_ANTERIOR_AREA" class="text-left">PRICE PER ANTERIOR AREA</div>
+                         <div flex="10" flex-xs="15" class="yellow-50-fg">40,00</div> <!-- flex 15 on width < 600px -->
+                         <div flex="10" flex-xs="15">EURO</div>                       <!-- flex 15 on width < 600px -->
+                      </div>
+                  </th>
+              </tr>
+          </thead>
+          <!-- <thead> 
+              <span class="tariff-price md-accent-bg yellow-50-fg" layout="row">
+                  <span translate="PRICE_LIST.PRICE_PER_ANTERIOR_AREA" flex="80" class="mt-5 ml-10">PRICE PER ANTERIOR AREA</span>
+                  <span flex="10" class="yellow-50-fg">40,00</span>
+                  <span flex="10" class="mt-5 text-center">EURO</span>
+              </span>
+          </thead> -->
+          <tbody class="text-center">
+              <tr>
+                <td class="h4">
+                      <span translate="PRICE_LIST.AGAINST_PER_ANTERIOR_AREA">Aga.Per anterior area</span> 20,00 €
+                </td>
+                <td>
+                  <span class="h4">
+                      <span translate="PRICE_LIST.ARCHIVING">Archiving</span> 2,00 €
+                  </span>
+                  <span class="font-size-10 text-sub text-right"> per 3D File</span>
+                </td> 
+                <td>
+                  <div class="h4">3D Design</div>
+                  <div class="font-size-10 ml-10" translate="PRICE_LIST.TYP_DEPENDING_RESTORATION">Type depends on restoration's type, see table top</div>                          
+                </td> 
+              </tr> 
+          </tbody>
+      </table>
+    </script>
+</div>
+

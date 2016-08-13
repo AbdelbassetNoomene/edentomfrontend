@@ -1,0 +1,168 @@
+<div id="search-scanagent" class="page-layout simple fullwidth" layout="column" layout-margin>
+
+   <div>
+       <div class="md-accent-fg border-bottom" translate="FILTER.SEARCH_SCANAGENT">Scan-Agent suchen</div>
+
+       <div class="md-whiteframe-1dp"> <!-- form-wrapper -->
+           <form name="search-scanagent-form" class="md-inline-form" novalidate>
+               <div layout="column" layout-gt="row">        <!-- gt-sm:  min-width: 960px -->
+                   <div layout="column" layout-gt-xs="row" flex>
+                       <md-input-container flex>
+                           <label translate="FILTER.USER_ROLE">Ich bin</label>
+                           <md-select ng-model="vm.selectedRole">
+                               <md-option ng-repeat="role in vm.roles" value="{{role}}">{{role}}</md-option>
+                           </md-select>
+                       </md-input-container>
+                       <div layout="column" layout-gt-xs="row">
+                           <md-input-container flex>
+                               <label translate="FILTER.USER_CITY">Stadt</label>
+                               <md-select ng-model="vm.userCity">
+                                   <md-option ng-repeat="city in vm.cities" value="{{city.id}}">{{city.name}}</md-option>
+                               </md-select>
+                           </md-input-container>
+   
+                           <md-input-container flex>
+                               <label translate="FILTER.USER_POSTAL_CODE">Postleizahl</label>
+                               <input name="userPostalcode" ng-model="userPostalcode" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                               <div ng-messages="search-scanagent-form.userPostalcode.$error" role="alert" multiple>
+                                   <div ng-message="required"><span>You must supply a postal code.</span></div>
+                                   <div ng-message="pattern"><span>That doesn't look like a valid postal code.</span></div>
+                                   <div ng-message="md-maxlength">
+                                       <span>Postal code can't be longer than 5 characters.</span>
+                                   </div>
+                               </div>
+                           </md-input-container>
+                       </div>
+                    </div>
+                    <div>
+                        <md-input-container class="md-block">
+                            <label translate="FILTER.USER_ADDRESS">Adresse</label>
+                            <textarea ng-model="vm.userAddress" columns="1" md-maxlength="150" rows="5"></textarea>
+                        </md-input-container>
+                   </div>
+
+                   <div layout="column" layout-gt-xs="row" flex>
+                       <div layout="row" class="date-row" flex>
+                           <md-input-container flex md-no-float>
+                               <label translate="FILTER.MEETING" flex>Termin</label>
+                               <!-- vm.timeMeeting s'affiche avec Chrome mais avec Firefox il ne s'affiche pas, la console montre l'erreur "invalid date" -->
+                               <input ng-model="vm.timeMeeting" placeholder="Zeit" type="time" name="timeMeeting" flex />
+                           </md-input-container>
+                           <span my-current-time="vm.TIME_FORMAT"></span>
+                           <md-datepicker flex ng-model="vm.dateMeeting" md-placeholder="Datum"></md-datepicker>
+                       </div>
+
+                       <md-slider-container layout="row" layout-align="center center" flex>
+                           <div flex="20" translate="FILTER.RADIUS">Umkreis</div>
+                           <md-slider flex ng-model="vm.distance" min="0" max="20" md-discrete step="1" id="distance-slider" aria-label="Entfernung"></md-slider>
+                           <div flex="10" ng-if="vm.distance">{{vm.distance}} Km</div>
+                       </md-slider-container>
+                   </div>
+
+                   <!--div layout="column" layout-gt-xs="row">
+                       <md-input-container flex>
+                           <label translate="FILTER.I_AM">Ich bin</label>
+                           <md-select ng-model="vm.selectedRole">
+                               <md-option ng-repeat="role in vm.roles" value="{{role}}">{{role}}</md-option>
+                           </md-select>
+                       </md-input-container>
+
+                       <div layout="column" layout-gt-xs="row" class="date-row" flex>
+                           <md-input-container flex md-no-float>
+                               <label translate="FILTER.MEETING" flex>Termin</label>
+                               <input ng-model="vm.timeMeeting" placeholder="Zeit" type="time" name="timeMeeting" flex />
+                           </md-input-container>
+                           <md-datepicker flex ng-model="vm.dateMeeting" md-placeholder="Datum"></md-datepicker>
+                       </div>
+                   </div>
+                   <div layout="row" layout-align="start center">
+                       <md-slider-container flex layout="row" layout-align="center center" >
+                           <div flex="20" translate="FILTER.RADIUS">Umkreis</div>
+                           <!--md-input-container flex="20">
+                               <input type="number" ng-model="vm.distance" aria-label="Entfernung" aria-controls="distance-slider">
+                           </md-input-container-- >
+                           <div flex="10" ng-if="vm.distance">{{vm.distance}} Km</div>
+                           <md-slider flex ng-model="vm.distance" min="0" max="20" md-discrete step="1" id="distance-slider" aria-label="Entfernung"></md-slider>
+                       </md-slider-container>
+                   </div-->
+               </div>
+           </form>
+       </div>
+   </div>
+
+   <div>
+        <div class="md-accent-fg border-bottom" translate="FILTER.TECHNOLOGY_PREFERENCES">TECHNOLOGY PREFERENCES</div>
+        <div layout="row" layout-xs="column" layout-padding flex>
+            <div layout="row" flex>
+                <md-input-container flex>
+                    <label translate="FILTER.INSTRUMENT" aria-label="Instrument">Instrument</label>
+                    <md-select ng-model="vm.selectedInstrument">
+                        <md-option ng-repeat="instrument in vm.instruments" value="{{instrument}}">{{instrument}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div layout="row" flex>
+                <md-input-container flex>
+                    <label translate="FILTER.PRODUCER" aria-label="Producer">PRODUCER</label>
+                    <md-select ng-model="vm.selectedProducer">
+                        <md-option ng-repeat="producer in vm.producers" value="{{producer}}">{{producer}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div layout="row" flex>
+                <md-input-container flex>
+                    <label translate="FILTER.MODEL" aria-label="Model">MODEL</label>
+                    <md-select ng-model="vm.selectedModel">
+                        <md-option ng-repeat="model in vm.models" value="{{model}}">{{model}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+        </div>
+    </div>
+
+    <!-- WIDGET GROUP -->
+    <div class="md-accent-fg border-bottom" translate="FILTER.RESULTS">RESULTS</div>
+
+    <div class="widget-group" layout="row" flex="100" layout-wrap>
+
+        <!-- WIDGET -->
+        <ms-widget ng-repeat="scanagent in vm.filteredEntries" flippable="true" layout="column" flex="100" flex-gt-xs="50" flex-gt-md="25">
+            <ms-widget-front class="white-bg" ng-click="vm.goToPricesListScanagent(scanagent)">
+                <div class="ph-8 pv-16 h-55" layout="row" layout-align="space-between center">
+                    <div class="h3">{{scanagent.profil}}</div>
+                </div>
+
+                <div class="period-media" layout="row" layout-wrap>
+                    <div class="media">
+                        <img ng-if="scanagent.picture" ng-src="assets/images/avatars/{{scanagent.picture}}" class="preview" alt="{{scanagent.firstName}} {{scanagent.lastName}}"/>
+                        <div class="title" flex layout="row" layout-align="start end">
+                            <div>
+                                <md-button class="md-icon-button"
+                                           ng-click="vm.toggleInArray(scanagent.id, scanagent.starred)"
+                                           aria-label="Toggle starred" translate
+                                           translate-attr-aria-label="SCAN_AGENT.TOGGLE_STARRED">
+                                    <md-icon md-font-icon="icon-star" class="amber-fg"></md-icon><!-- ng-if="vm.exists(scanagent.id,scanagent.starred)" -->
+                                <!--md-icon ng-if="!vm.exists(scanagent.id,scanagent.starred)" md-font-icon="icon-star-outline"></md-icon--> <!-- From "contacts" module in Fuse-demo -->
+                                </md-button>
+                                <md-button class="md-icon-button" aria-label="Available" translate
+                                           translate-attr-aria-label="TODO.MORE">
+                                   <md-icon md-font-icon ng-class="scanagent.availabilityStatus.icon"
+                                     ng-style="{'color': scanagent.availabilityStatus.color }"
+                                     class="icon status s16"></md-icon>
+                                </md-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-16 grey-50-bg border-top" layout="column" layout-align="start center">
+                    <div class="md-accent-fg">{{scanagent.laboratory.nameLabo}}</div>
+                    <div>{{scanagent.firstName}} {{scanagent.lastName}}</div>
+                    <div><span class="h4 secondary-text text-truncate">{{scanagent.address.streetNumber}} {{scanagent.address.street}},</span></div>
+                    <div><span class="h4 secondary-text text-truncate">{{scanagent.address.postalCode}} {{scanagent.address.city}}</span></div>
+                </div>
+            </ms-widget-front>
+        </ms-widget>
+        <!-- / WIDGET -->
+
+    </div>
+</div>

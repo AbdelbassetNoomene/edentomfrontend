@@ -1,0 +1,110 @@
+<md-content class="md-accent md-hue-2 md-padding">
+
+    <div>
+            <legend>Portfolio</legend>
+		    <div layout="row" layout-wrap>
+			    <div ng-repeat="portfolio in vm.statistics.pisDetails.data.portfolios">
+        		    <md-checkbox ng-checked="vm.statistics.pisDetails.selectedPortfolio.shortcut===portfolio.shortcut"
+        		                 ng-click="vm.setSelectedPortfolio(portfolio,'pisDetails')"
+        		                 aria-label="portfolio.name"
+        		                 flex>
+          			    {{ portfolio.name }}
+        		    </md-checkbox>
+        	    </div>
+            </div>
+            <div class="small-row" flex layout="row" layout-wrap layout-align="start center" ng-if="vm.statistics.pisDetails.selectedPortfolio.name">
+                <div flex="10">Kennzahl</div>
+                <div flex>
+                    <md-select ng-model="vm.statistics.pisDetails.selectedPiIndex" ng-change="vm.setSelectedItem(vm.statistics.pisDetails.selectedPiIndex,'pi','pisDetails')">
+                        <md-option ng-repeat="pi in vm.statistics.pisDetails.selectedPortfolio.performanceIndicators track by $index" value="{{$index}}">{{pi.name}}</md-option>
+                    </md-select>
+                </div>
+            </div>
+    </div>
+
+    <div ng-if="vm.statistics.pisDetails.selectedPiIndex"><!-- && (vm.statistics.pisDetails.selectedPI.details.length > 0) -->
+        <!--div layout="row" layout-wrap layout-align="center center"><h4>{{vm.statistics.pisDetails.selectedPI.name}}</h4></div-->
+        <legend>{{vm.statistics.pisDetails.selectedPI.name}}</legend>
+        <form id="pi-details-filter" ng-if="vm.statistics.pisDetails.selectedPI.details.length > 0">
+            <div class="small-row" flex layout="row" layout-wrap layout-align="start center">
+                <div ng-if="vm.statistics.pisDetails.selectedPI.businessInteractions.length > 1" flex="50" class="small-row" layout="row" layout-wrap>
+                  <div flex="30" class="md-padding">Gesch&auml;ftsfall</div>
+                   <div flex>
+                    <md-select ng-model="vm.searchQuery.businessInteraction"><!-- ng-change="vm.setSelectedItem(vm.searchQuery.businessInteraction,'piBi','pisDetails')" -->
+                        <md-option></md-option>
+                        <md-option ng-repeat="businessInteraction in vm.statistics.pisDetails.selectedPI.businessInteractions" value="{{businessInteraction}}">{{businessInteraction}}</md-option>
+                    </md-select>
+                  </div>
+                </div>
+                <div ng-if="vm.statistics.pisDetails.selectedPI.salesChannels.length > 1" flex="50" class="small-row" layout="row" layout-wrap>
+                    <div flex="30" class="md-padding">Vertriebskanal</div>
+                    <div flex>
+                        <md-select ng-model="vm.searchQuery.salesChannel">
+                            <md-option></md-option>
+                            <md-option ng-repeat="salesChannel in vm.statistics.pisDetails.selectedPI.salesChannels" value="{{salesChannel}}">{{salesChannel}}</md-option>
+                        </md-select>
+                    </div>
+                </div>
+            </div>
+            <div class="small-row" flex layout="row" layout-wrap layout-align="start center">
+              <div ng-if="vm.statistics.pisDetails.selectedPI.networks.length > 1" flex="50" class="small-row" layout="row" layout-wrap>
+                <div flex="30" class="md-padding">Netzwerk</div>
+                <div flex>
+                    <md-select ng-model="vm.searchQuery.networkOperator"><!-- ng-change="vm.setSelectedItem(vm.searchQuery.networkOperator,'piNetwork','pisDetails')" -->
+                        <md-option></md-option>
+                        <md-option ng-repeat="network in vm.statistics.pisDetails.selectedPI.networks" value="{{network}}">{{network}}</md-option>
+                    </md-select>
+                </div>
+              </div>
+              <div ng-if="vm.statistics.pisDetails.selectedPI.formattedValues.length > 1" flex="50" class="small-row" layout="row" layout-wrap>
+                <div flex="30" class="md-padding">Betrag</div>
+                <div flex>
+                    <md-select ng-model="vm.searchQuery.formattedValue"><!-- ng-change="vm.setSelectedItem(vm.searchQuery.formattedValue,'piValue','pisDetails')" -->
+                        <md-option></md-option>
+                        <md-option ng-repeat="value in vm.statistics.pisDetails.selectedPI.formattedValues" value="{{value}}">{{value}}</md-option>
+                    </md-select>
+                </div>
+              </div>
+            </div>
+        </form>
+        <div ng-if="vm.statistics.pisDetails.selectedPI.details.length > 0">
+        <md-table-container>
+            <table data-md-table data-md-row-select="false" data-ng-model="vm.selected" md-progress="promise"><!-- selectedPiDetails -->
+                <thead md-head data-md-order="vm.query.order" md-on-reorder="vm.onReorder">
+                    <tr md-row>
+                        <th md-column class="pi-details-header"
+                            ng-repeat="col in vm.statistics.pisDetails.columns"
+                            md:order:by="{{col}}"
+                            ng-if="!vm.isUnitOrFormattedValue(col)">
+                            <span>{{vm.statistics.pisDetails.allColumns[col]}}</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md:select="detail" data-md-on-select="vm.log" md-on-deselect="vm.deselect"
+                        ng-repeat="detail in vm.statistics.pisDetails.selectedPI.details | orderBy:vm.query.order | limitTo:vm.query.limit:(vm.query.page -1)*vm.query.limit | filter:vm.searchQuery">
+                        <td md-cell ng-repeat="col in vm.statistics.pisDetails.columns" ng-if="!vm.isUnitOrFormattedValue(col)">
+                            <span ng-if="!vm.isUnitOrFormattedValue(col) && !vm.isValue(col)">{{detail[col]}}</span>
+                            <span ng-if="vm.isValue(col)">{{detail[col+'Formatted']}}</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+        <data-md-table-pagination md-limit="vm.query.limit"
+                                  md-page="vm.query.page"
+                                  md-total="{{vm.statistics.pisDetails.selectedPI.details.length}}"
+                                  md-on-paginate="vm.onPaginate" md-page-select></data-md-table-pagination>
+
+        <div layout="row" layout-align="end center">
+            <md-button type="submit"
+                       class="md-raised md-accent submit-button"
+                       field-separator=";"
+                       decimal-separator="."
+                       ng-csv="vm.statistics.pisDetails.selectedPI.details"
+                       csv-header="vm.statistics.pisDetails.header"
+                       filename="pi_{{vm.statistics.pisDetails.selectedPI.name}}_detail.csv">CSV Export</md-button>
+        </div>
+        </div>
+    </div>
+</md-content>

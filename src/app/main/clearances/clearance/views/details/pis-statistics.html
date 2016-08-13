@@ -1,0 +1,53 @@
+<md-content class="md-accent md-hue-2 md-padding">
+    <div class="alert alert-danger" ng-hide="!vm.statistics.pisStatistics.pisStatisticsError" ng-bind="vm.statistics.pisStatistics.pisStatisticsError"></div>
+
+    <div ng-show="!vm.statistics.pisStatistics.pisStatisticsError">
+		<p>Portfolio</p>
+		<div layout="row" layout-wrap>
+			<div ng-repeat="portfolio in vm.statistics.pisStatistics.data.portfolios">
+        		<md-checkbox ng-checked="vm.statistics.pisStatistics.selectedPortfolio.shortcut===portfolio.shortcut"
+        		             ng-click="vm.setSelectedPortfolio(portfolio,'pisStatistics')"
+        		             aria-label="portfolio.name"
+        		             flex>
+          			{{ portfolio.name }}
+        		</md-checkbox>
+        	</div>
+  		</div>
+  		<div class="small-row" flex layout="row" layout-wrap layout-align="start center" ng-if="vm.statistics.pisStatistics.selectedPortfolio.name">
+  			<div flex="15">Kennzahl</div>
+  			<div flex>
+  				<md-select ng-model="vm.statistics.pisStatistics.selectedPiIndex" ng-change="vm.setSelectedItem(vm.statistics.pisStatistics.selectedPiIndex,'pi','pisStatistics')">
+                    <md-option ng-repeat="pi in vm.statistics.pisStatistics.selectedPortfolio.performanceIndicators track by $index" value="{{$index}}">{{pi.name}}</md-option>
+                </md-select>
+  			</div>
+            <div flex="20">
+                <md-button type="submit" class="md-raised md-accent" id="previousPI" ng-click="vm.getPreviousPI()">Vorherige Kennzahl</md-button>
+            </div>
+            <div flex="20">
+                <md-button type="submit" class="md-raised md-accent" id="nextPI" ng-click="vm.getNextPI()">N&auml;chste Kennzahl</md-button>
+            </div>
+        </div>
+        <div class="small-row" layout="row" layout-wrap layout-align="start center" ng-if="vm.statistics.pisStatistics.selectedPI.name">
+            <div flex="15">Ergebniswert</div>
+  			<div flex="50">
+  			    <md-select ng-model="vm.statistics.pisStatistics.selectedVsIndex" ng-change="vm.setSelectedItem(vm.statistics.pisStatistics.selectedVsIndex,'vs','pisStatistics')">
+                    <md-option ng-repeat="vs in vm.statistics.pisStatistics.selectedPI.valueSpecs track by $index" value="{{$index}}">{{vs.name}}</md-option>
+                </md-select>
+            </div>
+        </div>
+	</div>
+	<md-divider></md-divider>
+	<div layout="column" ng-if="vm.statistics.pisStatistics.selectedPI.history && vm.statistics.pisStatistics.selectedPI.history.length===0">
+		<div>{{vm.statistics.pisStatistics.selectedPI.history.message}}</div>
+	</div>
+	<div ng-repeat="pisStatisticsParameter in vm.pisStatisticsParameters | orderBy:identity" ng-if="vm.statistics.pisStatistics.selectedPI.history && vm.statistics.pisStatistics.selectedPI.history.length > 0">
+		<div layout="column" ng-if="vm.statistics.pisStatistics.selectedPI.history && vm.statistics.pisStatistics.selectedPI.history.data[pisStatisticsParameter][0].values">
+	        <h4>Vergleich der letzten {{pisStatisticsParameter}} Monate f&uuml;r {{vm.statistics.pisStatistics.selectedPI.name}}</h4>
+			<!-- Chart -->
+            <div>
+			    <nvd3 options='vm.statistics.pisStatistics.selectedPI.history.options' data='vm.statistics.pisStatistics.selectedPI.history.data[pisStatisticsParameter]'></nvd3>
+            </div>
+		</div>
+		<md-divider></md-divider>
+	</div>
+</md-content>

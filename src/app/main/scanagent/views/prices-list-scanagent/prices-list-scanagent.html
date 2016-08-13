@@ -1,0 +1,91 @@
+<div id="prices-list-scanagent" class="page-layout simple fullwidth" layout="column" layout-padding>
+    <div layout="row" layout-align="start center">
+        <div class="avatar-huge-wrapper">
+            <img class="avatar huge avatar-scanagent" ng-src="assets/images/avatars/{{vm.selectedScanagent.picture}}" alt="{{vm.selectedScanagent.firstName}} {{vm.selectedScanagent.lastName}}"/>
+            <md-icon md-font-icon ng-class="vm.selectedScanagent.availabilityStatus.icon"
+                     ng-style="{'color': vm.selectedScanagent.availabilityStatus.color }"
+                     class="icon status s20"></md-icon>
+        </div>
+        <div layout="row" flex layout-xs="column">
+                <div layout="column">
+                    <table class="info-user">
+                        <tr>
+                            <td><div class="font-weight-500 font-size-16 md-accent-fg">{{vm.selectedScanagent.firstName}} {{vm.selectedScanagent.lastName}}</div></td>
+                        </tr>
+                        <tr>
+                            <td class="info"><div aria-label="Scanagent phone">
+                                <md-icon md-font-icon="icon-cellphone-android" class="icon s18 md-accent-fg"></md-icon>
+                                <span>{{vm.selectedScanagent.mobile}}</span>
+                            </div></td>
+                        </tr>
+                        <tr>
+                            <td class="info"><div aria-label="Scanagent e-Mail">
+                                <md-icon md-font-icon="icon-email" class="icon s18 md-accent-fg"></md-icon>
+                                <span>{{vm.selectedScanagent.mail}}</span>
+                            </div></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="vertical-separator" hide-xs></div>
+                <div layout="column" ng-if="vm.selectedScanagent.laboratory">
+                    <table class="info-user">
+                        <tr>
+                            <td><div class="font-weight-500 font-size-14">{{vm.selectedScanagent.laboratory.nameLabo}}</div></td>
+                            <td></td>
+                        </tr>
+                        <tr ng-if="vm.selectedScanagent.laboratory.street">
+                            <td class="info-title">Adresse</td>
+                            <td class="info">{{vm.selectedScanagent.laboratory.street}} {{vm.selectedScanagent.laboratory.houseNumber}}, {{vm.selectedScanagent.laboratory.postalCode}} {{vm.selectedScanagent.laboratory.city}}</td>
+                        </tr>
+                        <tr>
+                            <td class="info-title">Tel</td>
+                            <td class="info">{{vm.selectedScanagent.laboratory.phoneLabo}}</td>
+                        </tr>
+                        <tr ng-if="vm.selectedScanagent.laboratory.mail">
+                            <td class="info-title">Email</td>
+                            <td class="info">{{vm.selectedScanagent.laboratory.mail}}</td>
+                        </tr>
+                        <tr ng-if="vm.selectedScanagent.laboratory.website">
+                            <td class="info-title">Website</td>
+                            <td class="info">{{vm.selectedScanagent.laboratory.website}}</td>
+                        </tr>
+                    </table>
+                </div>
+        </div>
+    </div>
+
+        <div class="md-accent-bg yellow-50-fg" layout="row" layout-xs="column" flex>
+            <div aria-label="Entfernung zu Ihrer Praxis" flex>
+                <md-icon md-font-icon="icon-map-marker" class="icon s18 yellow-50-fg"></md-icon>
+                <span>2,5 Km</span>
+            </div>
+            <div class="vertical-separator" hide-xs></div>
+            <div aria-label="Zeit zu Ihrer Praxis" flex>
+                <md-icon md-font-icon="icon-clock" class="icon s18 yellow-50-fg"></md-icon>
+                <span>20 min <span class="h6">zu Ihr Praxis</span></span>
+            </div>
+            <div class="vertical-separator" hide-xs></div>
+            <div aria-label="Datum Ankunft" flex>
+                <md-icon md-font-icon="icon-calendar-today" class="icon s18 yellow-50-fg"></md-icon>
+                <span>04.12.2016</span>
+            </div>
+        </div>
+
+        <!-- STEPPER -->
+        <form name="stepper" my-stepper ng-model="vm.stepper" novalidate><!-- ng-submit="vm.submitStepper()"  -->
+            <my-stepper-step ng-form="step1" step="1" step-title="'Angebot validieren'">
+                <div ui-view="step1"></div>
+            </my-stepper-step>
+
+            <my-stepper-step ng-form="step2" step="2" step-title="'Scan-Operation w&auml;hlen'" ng-disabled="!vm.pricesList.selectedTariffs || !vm.pricesList.selectedTariffs.length">
+                <div ui-view="step2"></div>
+            </my-stepper-step>
+
+           <!-- ng-click="vm.checkLoginRequired()" -->
+           <my-stepper-step ng-form="step3" step="3" step-title="'Auftrag vergeben'" ng-disabled="!vm.pricesList.selectedTariffs || !vm.pricesList.selectedTariffs.length">
+                <!--div ui-sref="app.scanagent.step3"></div-->
+                <div ui-view="step3"></div>
+            </my-stepper-step>
+        </form>
+        <!-- / STEPPER -->
+</div>

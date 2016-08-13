@@ -1,0 +1,100 @@
+<md-content class="md-accent md-hue-2 md-padding">
+    <div>
+        <table class="results simple clickable" ms-responsive-table>
+            <thead>
+                <tr>
+                    <th>{{vm.statistics.pisOverview.data.countPortfolioWithoutSubsidizedHardware}} ({{vm.statistics.pisOverview.data.percentPortfolioWithoutSubsidizedHardware}})%</th>
+                    <th>{{vm.statistics.pisOverview.data.countPortfolioWithSubsidizedHardware}} ({{vm.statistics.pisOverview.data.percentPortfolioWithSubsidizedHardware}})%</th>
+                    <th>{{vm.statistics.pisOverview.data.countErrors}} ({{vm.statistics.pisOverview.data.percentErrors}})%</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Anzahl Vertr&auml;ge Portfolio ohne Subvention</td>
+                    <td>Anzahl Vertr&auml;ge Portfolio mit Subvention</td>
+                    <td>Anzahl wegen Fehler ausgeschlossene Vertr&auml;ge</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <md-divider></md-divider>
+
+    <div>
+        <p>Portfolio</p>
+        <div layout="row" layout-wrap>
+            <div ng-repeat="portfolio in vm.statistics.pisOverview.data.portfolios">
+                <md-checkbox ng-checked="vm.statistics.pisOverview.selectedPortfolio.shortcut===portfolio.shortcut"
+                             ng-click  ="vm.setSelectedPortfolio(portfolio,'pisOverview')"
+                             aria-label="portfolio.name"
+                             flex>
+                    {{ portfolio.name }}
+                </md-checkbox>
+            </div>
+        </div>
+    </div>
+    <md-divider></md-divider>
+
+    <div ng-if="vm.statistics.pisOverview.selectedPortfolio.shortcut && vm.statistics.pisOverview.selectedPortfolio.primaryPis" layout="column">
+        <h4>Dimensionslose Betr&auml;ge der prim&auml;ren Kennzahlen</h4>
+        <div layout="row" layout-sm="column" layout-xs="column" layout-gt-sm="column">
+            <!-- Chart -->
+            <div>
+                <nvd3 options='vm.statistics.pisOverview.primaryPisOptions' data='vm.statistics.pisOverview.primaryPisData'></nvd3>
+            </div>
+            <table class="results simple clickable" ms-responsive-table>
+                <thead>
+                    <tr>
+                        <th ng-repeat="primaryPi in vm.statistics.pisOverview.primaryPisData[0].values">{{primaryPi.name}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td ng-repeat="primaryPi in vm.statistics.pisOverview.primaryPisData[0].values track by $index">{{vm.statistics.pisOverview.selectedPortfolio.primaryPis[$index].formattedValue}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <md-divider></md-divider>
+
+    <div ng-if="vm.statistics.pisOverview.selectedPortfolio.shortcut && vm.statistics.pisOverview.selectedPortfolio.secondaryPis" layout="column">
+        <h4>Dimensionslose Betr&auml;ge der sekund&auml;ren Kennzahlen</h4>
+        <!-- Chart -->
+        <div>
+            <nvd3 options='vm.statistics.pisOverview.secondaryPisOptions' data='vm.statistics.pisOverview.secondaryPisData'></nvd3>
+        </div>
+        <table class="results simple clickable" ms-responsive-table>
+            <thead>
+                <tr>
+                    <th ng-repeat="secondaryPi in vm.statistics.pisOverview.secondaryPisData[0].values">{{secondaryPi.name}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td ng-repeat="secondaryPi in vm.statistics.pisOverview.secondaryPisData[0].values track by $index">{{vm.statistics.pisOverview.selectedPortfolio.secondaryPis[$index].formattedValue}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <md-divider></md-divider>
+
+    <div ng-if="vm.statistics.pisOverview.selectedPortfolio.shortcut && vm.statistics.pisOverview.selectedPortfolio.quotes" layout="column">
+        <h5>Erzeugung von Quoten und Durchschnittskennzahlen</h5>
+        <table class="results simple clickable" ms-responsive-table>
+            <thead>
+                <tr>
+                    <th>Quoten und Durschnittskennzahlen</th>
+                    <th>Erzeugt</th>
+                    <th>Quote</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="quote in vm.statistics.pisOverview.selectedPortfolio.quotes">
+                    <td>{{quote.name}}</td>
+                    <td>{{quote.created}}</td>
+                    <td>{{quote.formattedValue}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</md-content>

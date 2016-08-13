@@ -1,0 +1,52 @@
+{
+    "SCAN_AGENT": {
+    	"TITLE":                 "Mobiler Scan-Agent",
+        "SCAN_AGENT_NAV":        "Mobiler Scan-Agent",
+        "PROTOCOL_FILE_BUTTON":  "Protokoll anschauen",
+        "INPUT_DATA_BUTTON":     "Eingangsdaten Analyse",
+        "PIS_OVERVIEW_BUTTON":   "Kennzahlen &Uuml;bersicht",
+        "PIS_STATISTICS_BUTTON": "Kennzahlen Statistik",
+        "BILLENGINE_PIS_BUTTON": "BillEngine Kennzahlen"
+    },
+    "FILTER": {
+        "INSTRUMENT":				"INSTRUMENT",
+        "MEETING":  				"Termin",
+        "MODEL":				    "Model",
+        "PRODUCER":					"HERSTELLER",
+        "RADIUS":       			"Umkreis",
+        "RESULTS":				    "ERGEBNISSE",
+        "SEARCH_SCANAGENT":         "SCAN-AGENT SUCHEN",
+        "SELECT_ROLE":  			"Rolle auswählen",
+        "TECHNOLOGY_PREFERENCES":   "TECHNOLOGIE PRÄFERENZEN",
+        "USER_ADDRESS":             "Adresse",
+        "USER_CITY":                "Stadt",
+        "USER_POSTAL_CODE":         "Postleizahl",
+        "USER_ROLE":                "Ich bin"
+    },
+    "PRICE_LIST": {
+        "AGAINST_PER_ANTERIOR_AREA": "Geg.Frontzahnbereich",
+        "AGAINST_QUADRANT":          "Gegen Quadrant",
+        "ARCHIVING":                 "Archivierung",
+        "BACK":                      "zuruck",
+        "BRIDGE" :                   "BRÜCKE",
+        "IMPLANTAT":                 "IMPLANTAT",
+        "IMPRESSION":                "ABFORMUNG",
+        "IN_ONLAY":                  "IN/ONLAY",
+        "INCLUSIVE":                 "Inklusiv",
+        "KRONE":                     "KRONE",
+        "MODEL":                     "MODELL",
+        "NEXT":                      "weiter",
+        "PRICE":                     "PREIS",
+        "PRICE_PER_ANTERIOR_AREA":   "PREIS PRO FRONTZAHNBEREICH",
+        "PRICE_PER_QUADRANT":        "PREIS PRO QUADRANT",
+        "REGISTRAT":                 "BISSREGISTRAT",
+        "SELECTION_OPERATION":       "Auswahl der Operation",
+        "SUBMIT":                    "bestellen",  
+        "TARIFF_BY_ENTIRE_KIEFER":   "Tarif nach Kompletter Kiefer",
+        "TARIFF_BY_QUADRANT":        "Tarif nach Quadrant",
+        "TARIFF_BY_SCAN_OPERATION":  "Tarif nach Scan-Operation",
+        "TIERED_PRICING":            "Preisstaffelung von 15% ab 6 Scan-Operationen",
+        "TYP_DEPENDING_RESTORATION": "je nach Restaurationstyp siehe Tabelle oben",
+        "VENEER":                    "VENEER"
+    }
+}

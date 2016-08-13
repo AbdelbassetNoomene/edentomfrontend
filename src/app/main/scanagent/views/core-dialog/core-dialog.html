@@ -1,0 +1,74 @@
+<md-dialog id="chooser-core-dialog" class="w-500 h-700" aria-label="Schema Dental">
+    <md-toolbar>
+        <div class="md-toolbar-tools md-accent-bg">
+            <span class="title"> Zahn-Nr {{ vm.toothNumber }} </span>
+            <span flex></span>
+            <md-icon  md-font-icon="icon-close" ng-click="vm.closeDialog()"></md-icon>
+        </div>
+    </md-toolbar>
+
+    <md-dialog-content ms-scroll>
+        <span class="title">Please select the cores</span>
+        <div class="schema-core-dental" class="w-240 h-360" flex="50" flex-xs="100" layout="column">
+            <div layout="column" flex="50">
+                <div class="up-1 h-65" ng-style="{'background-image': 'url(../assets/images/backgrounds/Dents_assets/{{vm.up1}}.png)'}" layout="row">
+                    <div flex="33" ng-repeat="tooth in ['13','12','11']" layout="column" ng-cloak>
+                        <img id="tooth-{{tooth}}" status="off" ng-src="../assets/images/teeth/unselected/{{tooth}}.png" ng-click='vm.selectTooth($event)' alt="tooth-{{tooth}}"/>
+                    </div>
+                    <div flex="33" ng-repeat="tooth in ['21','22','23']" layout="column" ng-cloak>
+                        <img id="tooth-{{tooth}}" status="off" ng-src="../assets/images/teeth/unselected/{{tooth}}.png" ng-click='vm.selectTooth($event)' alt="tooth-{{tooth}}"/>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div class="up-2 h-120" ng-style="{'background-image':'url(../assets/images/backgrounds/Dents_assets/{{vm.up2}}.png)'}" flex="50" layout="column">
+                        <img id="tooth-{{tooth}}" status="off" ng-repeat="tooth in ['14','15','16','17','18']" ng-src="../assets/images/teeth/unselected/{{tooth}}.png" flex="20" ng-click='vm.selectTooth($event)' alt="tooth-{{tooth}}"/>
+                    </div>
+                    <div class="up-3 h-120" ng-style="{'background-image':'url(../assets/images/backgrounds/Dents_assets/{{vm.up3}}.png)'}" flex="50" layout="column"> 
+                        <div flex="20">
+                            <img id="tooth-{{tooth}}" status="off" ng-repeat="tooth in ['24','25','26','27','28']"  ng-src="../assets/images/teeth/unselected/{{tooth}}.png" ng-click='vm.selectTooth($event)' alt="tooth-{{tooth}}"/>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div layout="column" flex="50">         
+                <div class="h-115" layout="row">            
+                    <div class="down-2" ng-style="{'background-image':'url(../assets/images/backgrounds/Dents_assets/{{vm.down2}}.png)'}" flex="50" layout="column"> 
+                        <div ng-repeat="tooth in ['48','47','46','45','44']" flex="20">
+                           <img id="tooth-{{tooth}}" status="off" ng-src="../assets/images/teeth/unselected/{{tooth}}.png" ng-click='vm.selectTooth($event)' alt="tooth-{{tooth}}"/>
+                        </div>
+                    </div>
+                    <div class="down-3" ng-style="{'background-image':'url(../assets/images/backgrounds/Dents_assets/{{vm.down3}}.png)'}" flex="50" layout="column">
+                        <div ng-repeat="tooth in ['38','37','36','35','34']" flex="20">
+                           <img id="tooth-{{tooth}}" status="off" ng-src="../assets/images/teeth/unselected/{{tooth}}.png" ng-click='vm.selectTooth($event)' alt="tooth-{{tooth}}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="down-1 h-65" ng-style="{'background-image':'url(../assets/images/backgrounds/Dents_assets/{{vm.down1}}.png)'}" layout="row">     
+                    <div flex="50" layout="row" ng-cloak>
+                        <div flex="33" ng-repeat="tooth in ['43','42','41']">
+                           <img id="tooth-{{tooth}}" status="off" ng-src="../assets/images/teeth/unselected/{{tooth}}.png" ng-click='vm.selectTooth($event)' alt="tooth-{{tooth}}"/> 
+                        </div>
+                    </div>
+                    <div flex="50" layout="row" ng-cloak>
+                        <div flex="33" ng-repeat="tooth in ['31','32','33']">
+                            <img id="tooth-{{tooth}}" status="off" ng-src="../assets/images/teeth/unselected/{{tooth}}.png" ng-click='vm.selectTooth($event)' alt="tooth-{{tooth}}"/> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </md-dialog-content> 
+
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="start center">
+                <md-button type="submit" ng-click="vm.closeDialog()">
+                    cancel
+                </md-button>
+                <div flex="33"></div>
+                <md-button type="submit" ng-click="vm.selectCore()">
+                    ok
+                </md-button> 
+            </div> 
+    </md-dialog-actions>
+</md-dialog>

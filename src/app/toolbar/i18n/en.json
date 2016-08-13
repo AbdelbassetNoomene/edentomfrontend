@@ -1,0 +1,18 @@
+{
+    "TOOLBAR": {
+        "DEUTSCH":                "Deutsch",
+        "ENGLISH":                "English",
+        "HELP":                   "Help",
+        "REGISTER":               "Register",
+        "LOGIN":                  "Login",
+        "LOGOUT":                 "Logout",
+        "INBOX":                  "Inbox",
+        "MYPROFILE":              "My Profile",
+        "SEARCH":                 "Search",
+        "TOGGLE_QUICK_PANEL":     "Toggle quick panel",
+        "TOGGLE_NAVIGATION":      "Toggle navigation",
+        "TOGGLE_NAVIGATION_FOLD": "Toggle navigation fold",
+        "TOGGLE_NAVIGATION_MODE": "Toggle navigation mode",
+        "USER_SETTINGS":          "User settings"
+    }
+}

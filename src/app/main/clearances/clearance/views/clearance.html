@@ -1,0 +1,7 @@
+<div id="layout-content-with-toolbar" class="template-layout" layout="column" ng-if="user.username" flex>
+
+    <md-toolbar id="toolbar" class="clearance page-layout simple fullwidth" ui-view="clearanceToolbar"></md-toolbar>
+
+    <md-content id="content" class="clearance animate-slide-up md-background md-hue-1" layout="column" ng-if="vm.clearance.startTime" ui-view="clearanceContent" flex></md-content>
+
+</div>

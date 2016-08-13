@@ -1,0 +1,9 @@
+{
+    "LOGOUT": {
+        "TITLE":        "Logout",
+        "CONFIRM":      "Ausloggen",
+        "CANCEL":       "Abbrechen",
+        "MESSAGE":      "Wollen Sie wirklich ausloggen?",
+        "CLOSE_DIALOG": "Schließen"
+    }
+}

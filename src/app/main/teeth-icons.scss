@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "Teeth Font";
+    src: url('../assets/icons/fonts/tooth.ttf') format("truetype");
+}
+
+div.teethfont { 
+    font-family: "Teeth Font", Verdana, Tahoma;
+    font-size: 40px;
+}

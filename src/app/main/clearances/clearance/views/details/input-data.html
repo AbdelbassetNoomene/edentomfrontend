@@ -1,0 +1,81 @@
+<md-content class="md-accent md-hue-2 md-padding">
+        			<div>
+        				<table class="results simple clickable" ms-responsive-table>
+            				<thead>
+                				<tr>
+                  					<th>{{vm.statistics.inputData.data.countTotal}} (100%)</th>
+                  					<th>{{vm.statistics.inputData.data.countPortfolioWithSubsidizedHardware}} ({{vm.statistics.inputData.data.percentPortfolioWithSubsidizedHardware}}%)</th>
+                  					<th>{{vm.statistics.inputData.data.countPortfolioWithoutSubsidizedHardware}} ({{vm.statistics.inputData.data.percentPortfolioWithoutSubsidizedHardware}}%)</th>
+                  					<th>{{vm.statistics.inputData.data.countPortfolioPostpaid}} ({{vm.statistics.inputData.data.percentPortfolioPostpaid}}%)</th>
+                  					<th>{{vm.statistics.inputData.data.countNonMea}} ({{vm.statistics.inputData.data.percentNonMea}}%)</th>
+                				</tr>
+            				</thead>
+            				<tbody>
+                    			<tr>
+                    				<td>Anzahl Vertr&auml;ge</td>
+                    				<td>Anzahl Vertr&auml;ge Portfolio mit Subvention</td>
+                    				<td>Anzahl Vertr&auml;ge Portfolio ohne Subvention</td>
+                    				<td>Anzahl Vertr&auml;ge Portfolio Postpaid</td>
+                    				<td>Anzahl Vertr&auml;ge Portfolio NON-MEA</td>
+                				</tr>
+            				</tbody>
+        				</table>
+        			</div>
+        			<md-divider></md-divider>
+
+					<div layout="column">
+						<h3>Ausgeschlossene Vertr&auml;ge wegen fehlender MEA-Relevanz</h3>
+						<div layout="row" layout-sm="column" layout-xs="column" layout-gt-sm="column">
+							<table class="results simple clickable" ms-responsive-table>
+                                <thead>
+                                    <tr>
+                                        <th name="Buchungsrelevanz Gr&uuml;nde"></th>
+                                        <th name="Anzahl"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="irrelevantReason in vm.statistics.inputData.data.irrelevantReasons">
+                                        <td>{{irrelevantReason.name}}</td>
+                                        <td class="right">{{irrelevantReason.counter}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td class="right">{{vm.totalBookingRelevances}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Chart 1 -->
+                            <div>
+                                <nvd3 options='vm.statistics.inputData.bookingRelevancesOptions' data='vm.statistics.inputData.bookingRelevancesData'></nvd3>
+                            </div>
+						</div>
+					</div>
+					<md-divider></md-divider>
+					<div layout="column">
+						<h3>Buchungsrelevante Vertr&auml;ge, gruppiert nach Portfoliozuordnungs-Grund</h3>
+						<div layout="row" layout-sm="column" layout-xs="column" layout-gt-sm="column">
+							<table class="results simple clickable" ms-responsive-table>
+								<thead>
+									<tr>
+										<th name="Portfolio-Zuordnungsgr&uuml;nde"></th>
+										<th name="Anzahl"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="relevantReason in vm.statistics.inputData.data.relevantReasons">
+										<td>{{relevantReason.name}}</td>
+										<td class="right">{{relevantReason.counter}}</td>
+									</tr>
+									<tr>
+      									<td>Total</td>
+      									<td class="right">{{vm.totalPortfolioRelevances}}</td>
+      								</tr>
+								</tbody>
+							</table>
+							<!-- Chart 2 -->
+                            <div>
+							    <nvd3 options='vm.statistics.inputData.portfolioRelevancesOptions' data='vm.statistics.inputData.portfolioRelevancesData'></nvd3>
+                            </div>
+						</div>
+					</div>
+        		</md-content>

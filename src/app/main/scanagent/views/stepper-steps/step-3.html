@@ -1,0 +1,15 @@
+    <!-- LOGIN VIEW -->
+	<div ng-if="!user.userName"
+	     class="view animate-slide-left"
+	     ui-view="login"
+	     layout="column" flex>
+	</div>
+	<!-- LOGIN VIEW -->
+	
+	<!-- AWARD CONTRACT - DEFAULT VIEW -->
+	<!-- ng-if="vm.showAwardContract" -->
+	<div ng-if="user.userName" class="view animate-slide-right"
+	     ng-include="'app/main/scanagent/views/award-contract.html'"
+	     layout="column" flex>
+	</div>
+	<!-- / AWARD CONTRACT - DEFAULT VIEW -->

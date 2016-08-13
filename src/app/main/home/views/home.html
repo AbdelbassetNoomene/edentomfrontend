@@ -1,0 +1,38 @@
+<div id="home" class="page-layout simple right-sidenav" layout="row">
+
+    <!-- CENTER -->
+    <div class="center" flex ms-scroll>
+        <div class="header small md-accent-bg" layout="row" layout-align="space-between">
+            <div class="toolbar">
+                <!-- TODO: The following button and its icon is needed to toggle the sidenav for small window (Responsive Feature) -->
+                <md-button class="md-icon-button sidenav-toggle" ng-click="vm.toggleSidenav('sidenav')" hide-gt-md aria-label="Toggle sidenav">
+                    <md-icon md-font-icon="icon-google-maps" class="icon"></md-icon><!-- icon-menu -->
+                </md-button>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+            <md-tabs md-dynamic-height md-stretch-tabs md-selected="vm.selectedIndex">
+                <md-tab label="Mobiler Scan-Agent"     ui-sref="app.home"></md-tab>
+                <md-tab label="Abdruck Digitalisieren" ui-sref="app.home.digitalimprint"></md-tab>
+                <md-tab label="Share 3D Scanner"       ui-sref="app.home.3dscann"></md-tab>
+                <md-tab label="3D-Design"              ui-sref="app.home.3ddesign"></md-tab>
+            </md-tabs>
+
+            <md-content ui-view="tabContent" flex class="card md-whiteframe-4dp"></md-content>
+        </div>
+        <!-- / CONTENT -->
+    </div>
+    <!-- / CENTER -->
+
+    <!-- SIDENAV -->
+    <md-sidenav class="sidenav details-sidenav md-sidenav-right"
+                md-component-id="sidenav"
+                ui-view="sidenav"
+                md-is-locked-open="$mdMedia('gt-md')"
+                ms-scroll
+                ms-sidenav-helper>
+    </md-sidenav>
+    <!-- / SIDENAV -->
+</div>

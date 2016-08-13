@@ -1,0 +1,40 @@
+md-dialog {
+
+    &.reduction-dialog {
+        max-width: 400px;
+        width: 400px;
+
+        .title {
+            font-size: 17px;
+        }
+
+        .md-toolbar-tools-bottom {
+            md-menu {
+                margin: 0;
+            }
+        }
+
+        md-dialog-content {
+            display: block;
+            position: relative;
+
+            .md-button {
+                    margin: 0 16px 0 0;
+                    padding: 0;
+                    width: 24px;
+                    height: 24px;
+            }
+
+        }
+
+        md-dialog-actions {
+            position: relative;
+            overflow-y: hidden;
+            overflow-x: auto;
+            justify-content: space-between;
+            background-color: rgba(0, 0, 0, 0.03);
+            border-top: 1px solid rgba(0, 0, 0, 0.12);
+        }
+
+    }
+}

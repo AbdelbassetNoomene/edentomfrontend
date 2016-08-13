@@ -1,0 +1,17 @@
+ html, body {
+            height: 100%;
+        }
+
+        #map_canvas {
+            position: relative;
+            height: 100%;
+            width: 100%;
+        }
+
+ui-gmap-google-map, .angular-google-map,.angular-google-map-container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
