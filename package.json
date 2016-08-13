@@ -53,12 +53,9 @@
    },
   "scripts": {
   "start": "node app",
-  "postinstall": "gulp default"
+  "postinstall": "gulp serve"
   },
   "devDependencies": {
     
-  },
-  "engines": {
-    "node": ">=0.10.0"
   }
 }
