@@ -6,8 +6,15 @@
 
 'use strict';
 
-var gulp = require('gulp');
-var wrench = require('wrench');
+var gulp = require('gulp'),
+    gulpLoadPlugins = require('gulp-load-plugins'),
+    $               = gulpLoadPlugins({
+                        rename: {
+                          'gulp-htmlmin' : 'minhtml',
+                          'gulp-foreach' : 'foreach'
+                        }
+}),
+ wrench = require('wrench');
 
 /**
  *  This will load all js or coffee files in the gulp directory
