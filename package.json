@@ -54,7 +54,7 @@
    },
   "scripts": {
   "start": "node app",
-  "postinstall": "./node_modules/bower/bin/bower install && gulp heroku:production"
+  "postinstall": "gulp heroku:production"
  
   },
   "devDependencies": {
