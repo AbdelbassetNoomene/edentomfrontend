@@ -62,7 +62,8 @@
    },
   "scripts": {
   "start": "node app",
-  "postinstall": "bower cache clean && bower install && gulp heroku:production"
+   "preinstall": "bower cache clean && bower install",
+  "postinstall": "gulp heroku:production"
  
  
   },
