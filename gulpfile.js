@@ -51,7 +51,7 @@ gulp.task('default', ['clean'], function () {
   if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined)
     $.exec('open http://localhost:5000');
 });*/
-gulp.task('serve',['assemble'],function() {
+/*gulp.task('serve',['assemble'],function() {
   $.connect.server({
     root: '0.0.0.0',
     port: process.env.PORT || 5000, 
@@ -63,4 +63,4 @@ if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined)
 } else {
   gulp.task('default', [ 'serve']);
 }
-
+*/
