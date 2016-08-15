@@ -58,9 +58,9 @@ gulp.task('serve',['assemble'],function() {
     livereload: false
   });
 });
-/*if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
   gulp.task('default', [  'serve']);
 } else {
   gulp.task('default', [ 'serve']);
 }
-*/
+
