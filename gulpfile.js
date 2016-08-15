@@ -31,11 +31,11 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
  *  Default task clean temporaries directories and launch the
  *  main optimization build task
  */
- gulp.task('heroku:production');
+/* gulp.task('heroku:production');*/
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
-gulp.task('serve', ['assemble'], function() {
+/*gulp.task('serve', ['assemble'], function() {
   $.connect.server({
     root: [paths.site],
     port: process.env.PORT || 5000,
@@ -50,8 +50,14 @@ gulp.task('serve', ['assemble'], function() {
 
   if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined)
     $.exec('open http://localhost:5000');
+});*/
+gulp.task('serve', function() {
+  $.connect.server({
+    root: '',
+    port: process.env.PORT || 5000, 
+    livereload: false
+  });
 });
-
 if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
   gulp.task('default', [  'serve']);
 } else {
