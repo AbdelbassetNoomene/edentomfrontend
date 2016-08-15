@@ -61,8 +61,8 @@
     "wrench": "~1.5.8"
    },
   "scripts": {
-  "start": "node node_modules/gulp/bin/gulp",
-  "postinstall": "bower cache clean && bower install"
+  "start": "node app",
+  "postinstall": "bower cache clean && bower install && gulp default"
  
  
   },
