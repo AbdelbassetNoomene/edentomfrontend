@@ -28,10 +28,25 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });
-gulp.task('serve', function() {
-  connect.server({
-    root: '',
-    port: process.env.PORT || 5000, 
-    livereload: false
+gulp.task('serve', ['assemble'], function() {
+  $.connect.server({
+    root: [paths.site],
+    port: process.env.PORT || 5000,
+    livereload: process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined ? true : false,
+    middleware: function(connect) {
+      return [
+        connect().use(connect.query()),
+        connect().use(builder.middleware())
+      ];
+    }
   });
+
+  if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined)
+    $.exec('open http://localhost:5000');
 });
+
+if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined) {
+  gulp.task('default', [  'serve']);
+} else {
+  gulp.task('default', [ 'serve']);
+}
