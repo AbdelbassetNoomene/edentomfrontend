@@ -6,7 +6,7 @@
    },
   "scripts": {
   "start": "node app",
-  "postinstall": "gulp heroku:production"
+  "postinstall": "bower install gulp heroku:production"
   },
   "devDependencies": {
      "browser-sync": "~2.9.11",
