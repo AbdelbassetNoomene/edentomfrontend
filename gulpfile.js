@@ -53,7 +53,7 @@ gulp.task('default', ['clean'], function () {
 });*/
 gulp.task('serve',['assemble'],function() {
   $.connect.server({
-    root: '',
+    root: '0.0.0.0',
     port: process.env.PORT || 5000, 
     livereload: false
   });
