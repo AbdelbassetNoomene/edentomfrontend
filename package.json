@@ -53,7 +53,8 @@
     "wrench": "~1.5.8"
    },
   "scripts": {
-  "start": "node node_modules/gulp/bin/gulp"
+  "start": "node node_modules/gulp/bin/gulp",
+  "postinstall":"node_modules/bower/bin/bower install"
  
  
   },
