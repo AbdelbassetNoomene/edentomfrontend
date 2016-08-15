@@ -2,7 +2,14 @@
   "name": "edentom",
   "version": "0.0.1",
    "dependencies": {
-    "browser-sync": "~2.9.11",
+   
+   },
+  "scripts": {
+  "start": "node app",
+  "postinstall": "gulp heroku:production"
+  },
+  "devDependencies": {
+     "browser-sync": "~2.9.11",
     "browser-sync-spa": "~1.0.3",
     "chalk": "~1.1.1",
     "del": "~2.0.2",
@@ -50,13 +57,6 @@
     "uglify-save-license": "~0.4.1",
     "wiredep": "~2.2.2",
     "wrench": "~1.5.8"
-   },
-  "scripts": {
-  "start": "node app",
-  "postinstall": "gulp heroku:production"
-  },
-  "devDependencies": {
-    
   },
   "engines": {
     "node": ">=0.10.0"
