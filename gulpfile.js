@@ -14,8 +14,7 @@ var gulp = require('gulp'),
                           'gulp-foreach' : 'foreach'
                         }
 }),
- wrench = require('wrench'),
-  runSeq = require('gulp-run-sequence');
+ wrench = require('wrench');
 
 /**
  *  This will load all js or coffee files in the gulp directory
