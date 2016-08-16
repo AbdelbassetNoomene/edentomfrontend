@@ -14,7 +14,8 @@ var gulp = require('gulp'),
                           'gulp-foreach' : 'foreach'
                         }
 }),
- wrench = require('wrench');
+ wrench = require('wrench'),
+  runSeq = require('run-sequence');
 
 /**
  *  This will load all js or coffee files in the gulp directory
@@ -36,8 +37,9 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
   gulp.start('build');
 });*/
 gulp.task('heroku:production', function(){
-  console.log('herokuduction');
-});
+  runSeq('clean', 'build', 'minify')
+})
+
 /*gulp.task('heroku:production', ['clean',  'build']);
 gulp.task('serve', ['assemble'], function() {
   $.connect.server({
