@@ -7,13 +7,15 @@
 'use strict';
 
 var gulp = require('gulp'),
-    gulpLoadPlugins = require('gulp-load-plugins'),
+ gulpLoadPlugins = require('gulp-load-plugins'),
     $               = gulpLoadPlugins({
                         rename: {
                           'gulp-htmlmin' : 'minhtml',
                           'gulp-foreach' : 'foreach'
                         }
-}),
+                      }),
+    builder         = require('./builder'),
+
  wrench = require('wrench');
 
 /**
@@ -36,13 +38,13 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
   gulp.start('build');
 });*/
 gulp.task('heroku:production', function(){
-  gulp.task('minify',['clean', 'build']);
+  gulp.task('serve',['clean', 'build']);
 })
 
-/*gulp.task('heroku:production', ['clean',  'build']);
+/*gulp.task('heroku:production', ['clean',  'build']);*/
 gulp.task('serve', ['assemble'], function() {
   $.connect.server({
-    root: [paths.site],
+    root: '',
     port: process.env.PORT || 5000,
     livereload: process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined ? true : false,
     middleware: function(connect) {
@@ -55,7 +57,7 @@ gulp.task('serve', ['assemble'], function() {
 
   if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined)
     $.exec('open http://localhost:5000');
-});*/
+});
 /*gulp.task('serve',['assemble'],function() {
   $.connect.server({
     root: '0.0.0.0',
