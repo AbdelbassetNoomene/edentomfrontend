@@ -62,6 +62,7 @@
     "wiredep": "~2.2.2",
     "wrench": "~1.5.8",
      "mocha": "^2.0.1",
+     "run-sequence":"*",
 "mocha-lcov-reporter": "^0.0.1"
    },
   "scripts": {
