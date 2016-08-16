@@ -37,7 +37,7 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
   gulp.start('build');
 });*/
 gulp.task('heroku:production', function(){
-  runSeq('clean', 'build', 'minify')
+  gulp.task('minify',['clean', 'build']);
 })
 
 /*gulp.task('heroku:production', ['clean',  'build']);
