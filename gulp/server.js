@@ -40,7 +40,8 @@ function browserSyncInit(baseDir, browser)
     browserSync.instance = browserSync.init({
         startPath: '/',
         server   : server,
-        browser  : browser
+        browser  : browser,
+         port: process.env.PORT || 5000
         /*port     : 8000, // This is where the port goes for the server
         ui: {
             port: 8001     // This is where the port goes for Browsersync's interface
