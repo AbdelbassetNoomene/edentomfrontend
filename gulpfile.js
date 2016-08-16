@@ -14,8 +14,6 @@ var gulp = require('gulp'),
                           'gulp-foreach' : 'foreach'
                         }
                       }),
-    builder         = require('./builder'),
-
  wrench = require('wrench');
 
 /**
@@ -46,13 +44,7 @@ gulp.task('serve', function() {
   $.connect.server({
     root: '',
     port: process.env.PORT || 5000,
-    livereload: process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined ? true : false,
-    middleware: function(connect) {
-      return [
-        connect().use(connect.query()),
-        connect().use(builder.middleware())
-      ];
-    }
+    livereload: process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined ? true : false
   });
 
   if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === undefined)
