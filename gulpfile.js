@@ -32,9 +32,9 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
  *  main optimization build task
  */
 /* gulp.task('heroku:production');*/
-gulp.task('default', ['clean'], function () {
+/* gulp.task('default', ['clean'], function () {
   gulp.start('build');
-});
+});*/
 gulp.task('heroku:production',['build'], function(){
   console.log('herokuduction');
 });
