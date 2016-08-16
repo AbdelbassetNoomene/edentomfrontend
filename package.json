@@ -63,7 +63,8 @@
     "wrench": "~1.5.8"
    },
   "scripts": {
-  "start": "node app"
+  "start": "node app",
+   "preinstall": "bower cache clean && bower install"
  
  
   },
