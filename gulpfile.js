@@ -40,7 +40,7 @@ gulp.task('heroku:production', function(){
 })
 
 /*gulp.task('heroku:production', ['clean',  'build']);*/
-gulp.task('serve', function() {
+gulp.task('serve',['clean', 'build'], function() {
   $.connect.server({
     root: '',
     port: process.env.PORT || 5000,
